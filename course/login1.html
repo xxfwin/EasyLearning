@@ -1,0 +1,81 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>ebody登陆</title>
+<script type="text/javascript">
+ function init(){
+  document.form1.username.focus();
+  }
+ function blu(){
+  var space=document.form1.username.value;
+  if(space==""){
+   var sp=document.getElementById("sp").innerHTML="The name can not be blank!";
+   }
+  else {
+   document.getElementById("sp").innerHTML="";
+   }
+  }
+ function funpsd(){
+  var psd=document.form1.psd.value
+  if(psd==""){
+   document.getElementById("sp1").innerHTML="The passowrd can not be blank!";
+   }
+  else if(psd.length<6 || psd.length>15){
+   document.getElementById("sp1").innerHTML="The size of the password should be between 6-15 ";
+   }
+  else {
+   document.getElementById("sp1").innerHTML="";
+   }
+  }
+ function funcpsd(){
+  var psd1=document.form1.psd.value;
+  var psd2=document.form1.cpsd.value;  //变量赋值在前
+  if(psd1!=psd2){
+   document.getElementById("sp2").innerHTML="Password not match reinput";
+   document.form1.psd.select();
+   //psd2="" //把变量清空，但document.form1.cpsd.value还是原来的值，并没有清空document.form1.cpsd.value的值
+   document.form1.cpsd.value="";
+   }
+  else{
+   document.getElementById("sp2").innerHTML="";
+   }
+  }
+ 
+  
+</script>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<style type="text/css">
+body,td,th {
+	font-size: large;
+	font-weight: bold;
+}
+body {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+</style>
+</head>
+<body onLoad="init();">
+ <form name="form1" method="post" action="login.php">
+  <div>
+  <label for="username">
+  <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Ur name： &nbsp; <input type="text" name="username" id="username" onBlur="blu();"  value="" /><span id="sp"></span></br>
+  </label>
+  </div>
+  <div>
+  </div>
+  <div>
+  <label for="psd1">
+   <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Ur password： &nbsp; <input type="password" name="password" id="psd1";"  value="" /><span id="sp1"></span></br>
+  </label>
+  </div>
+  <div>
+  <label for="cpsd1">
+    <br>&nbsp;</label>
+  </div>
+<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<input type="submit" value="Login " />
+  <input type="reset" value="Reset" /></br>
+  </div>
+ </form>
+</body>
+</html>

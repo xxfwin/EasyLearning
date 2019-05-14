@@ -1,0 +1,441 @@
+<?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+ * Moodle's Clean theme, an example of how to make a Bootstrap theme
+ *
+ * DO NOT MODIFY THIS THEME!
+ * COPY IT FIRST, THEN RENAME THE COPY AND MODIFY IT INSTEAD.
+ *
+ * For full information about creating Moodle themes, see:
+ * http://docs.moodle.org/dev/Themes_2.0
+ *
+ * @package   theme_clean
+ * @copyright 2013 Moodle, moodle.org
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+// Get the HTML for the settings bits.
+$html = theme_clean_get_html_for_settings($OUTPUT, $PAGE);
+
+// Set default (LTR) layout mark-up for a three column page.
+$regionmainbox = 'span9';
+$regionmain = 'span8 pull-right';
+$sidepre = 'span4 desktop-first-column';
+$sidepost = 'span3 pull-right';
+// Reset layout mark-up for RTL languages.
+if (right_to_left()) {
+    $regionmainbox = 'span9 pull-right';
+    $regionmain = 'span8';
+    $sidepre = 'span4 pull-right';
+    $sidepost = 'span3 desktop-first-column';
+}
+
+echo $OUTPUT->doctype() ?>
+<html <?php echo $OUTPUT->htmlattributes(); ?>>
+<head>
+<link href="main.css" rel="stylesheet" type="text/css">
+<link href="common.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" media="all" type="text/css" href="pop.css"> 
+<link href="lesson.css" rel="stylesheet" type="text/css">
+<link href="lesson_com.css" rel="stylesheet" type="text/css">
+<link href="mainview.css" rel="stylesheet" type="text/css" id="skin_css">
+<link href="view.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="ueditor.config.js"></script>
+<script type="text/javascript" src="ueditor.all.min.js"></script>
+<script type="text/javascript" src="update.js"></script>
+<script src="jquery-1.3.2.min.js" type="text/javascript"></script>
+<style type="text/css">
+body,td,th {
+	color: #000;
+}
+</style>
+
+
+<script language="javascript">
+
+function Layer_HideOrShow(cur_div)  
+
+{ var current=document.getElementById(cur_div);  
+
+   if(current.style.display=="none")  
+
+     {  
+
+current.style.display ="";  
+
+     }  
+
+   else  
+
+    {  
+
+current.style.display ="none";  
+
+    }  
+
+}  
+
+    function deleteEditor() {
+        
+        UE.getEditor('tdefs').destroy();
+		
+    }
+	
+	    function createEditor() {
+        
+        UE.getEditor('tdefs');
+    }
+
+</script>
+
+
+<script src="en.js" type="text/javascript" defer="defer"></script><link href="ueditor.css" type="text/css" rel="stylesheet"><script src="codemirror.js" type="text/javascript" defer="defer"></script><link rel="stylesheet" type="text/css" href="codemirror.css"><script src="ZeroClipboard.js" type="text/javascript" defer="defer"></script>
+<meta charset="utf-8">
+    <meta http-equiv="cleartype" content="on">
+    <meta name="MobileOptimized" content="320">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <style>
+      body {
+        width: 100%;
+        height: 100%;
+      }
+
+      .slideout-menu {
+        position: fixed;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        z-index: 0;
+        width: 384px;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        display: none;
+      }
+
+      .slideout-panel {
+        position:relative;
+        z-index: 1;
+        will-change: transform;
+      }
+
+      .slideout-open,
+      .slideout-open body,
+      .slideout-open .slideout-panel {
+        overflow: hidden;
+      }
+
+      .slideout-open .slideout-menu {
+        display: block;
+      }
+    </style>
+    <title><?php echo $OUTPUT->page_title(); ?></title>
+    <link rel="shortcut icon" href="<?php echo $OUTPUT->favicon(); ?>" />
+    <?php echo $OUTPUT->standard_head_html() ?>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body <?php echo $OUTPUT->body_attributes(); ?>>
+
+<?php echo $OUTPUT->standard_top_of_body_html() ?>
+
+<header role="banner" class="navbar navbar-fixed-top<?php echo $html->navbarclass ?> moodle-has-zindex">
+    <nav role="navigation" class="navbar-inner">
+        <div class="container-fluid">
+            <a class="brand" href="<?php echo $CFG->wwwroot;?>"><?php echo
+                format_string($SITE->shortname, true, array('context' => context_course::instance(SITEID)));
+                ?></a>
+            <?php echo $OUTPUT->navbar_button(); ?>
+            <?php echo $OUTPUT->user_menu(); ?>
+            <div class="nav-collapse collapse">
+                <?php echo $OUTPUT->custom_menu(); ?>
+                <ul class="nav pull-right">
+                    <li><?php echo $OUTPUT->page_heading_menu(); ?></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+<div id="page" class="container-fluid">
+    <?php echo $OUTPUT->full_header(); ?>
+    <div id="page-content" class="row-fluid">
+        <div id="region-main-box" class="<?php echo $regionmainbox; ?>">
+            <div class="row-fluid">
+                <section id="region-main" class="<?php echo $regionmain; ?>">
+                    <?php
+                    echo $OUTPUT->course_content_header();
+                    echo $OUTPUT->main_content();
+                    echo $OUTPUT->course_content_footer();
+                    ?>
+                </section>
+                <?php echo $OUTPUT->blocks('side-pre', $sidepre); ?>
+            </div>
+        </div>
+		<aside class="span3 pull-right block-region" data-blockregion="side-post">
+<nav id="menu">
+    <div class="column_250">
+       <a onclick="Layer_HideOrShow('defs');">
+	   <form id="form1" name="form1" method="post" action="shiti13.php">
+	   <h2>Definitions</h2><br></a>
+	   <div id="defs" style="display:none">
+	   
+	   
+	   
+		
+
+	   <h3>Genetic algorithm</h3>
+	   &nbsp &nbsp Genetic algorithm is a search heuristic that mimics the process of natural selection.<br><br>
+	   <h3>GA</h3>
+	   &nbsp &nbsp GA is the abbreviation of Genetic algorithm.<br><br>
+	   <h3>Crossover</h3>
+	   &nbsp &nbsp Crossover is a genetic operator used to vary the programming of a chromosome or chromosomes from one generation to the next. It is analogous to reproduction and biological crossover, upon which genetic algorithms are based. Cross over is a process of taking more than one parent solutions and producing a child solution from them.<br><br>
+	   <h3>Mutation</h3>
+	   &nbsp &nbsp Mutation is a genetic operator used to maintain genetic diversity from one generation of a population of genetic algorithm chromosomes to the next. It is analogous to biological mutation. Mutation alters one or more gene values in a chromosome from its initial state.<br><br>
+	   <h3>Fitness</h3>
+	   &nbsp &nbsp Fitness is a central idea in evolutionary theory. It can be defined either with respect to a genotype or to a phenotype in a given environment.In either case, it describes the ability to both survive and reproduce, and is equal to the average contribution to the gene pool of the next generation that is made by an average individual of the specified genotype or phenotype.<br><br>
+	   <h3>Fitness Function</h3>
+	   &nbsp &nbsp A fitness function is a particular type of objective function that is used to summarise, as a single figure of merit, how close a given design solution is to achieving the set aims.<br><br>
+	   <h3>Roulette Wheel Selection</h3>
+	   &nbsp &nbsp Roulette Wheel Selection ,also known as fitness proportionate selection is a genetic operator used in genetic algorithms for selecting potentially useful solutions for recombination.<br><br>
+	   <h3>Optimal solution</h3>
+	   &nbsp &nbsp Optimal solution is the problem of finding the best solution from all feasible solutions.<br><br>
+	
+	   
+	    </form>
+
+	   </div>
+	
+
+	
+	   <br><br>
+	   <a onclick="Layer_HideOrShow('facts');"><h2>Facts</h2></a>
+	   <div id="facts" style="display:none">
+	
+	   
+	   
+	   <h3>How does the crossover operator work?</h3>
+	   &nbsp &nbsp First, the crossover operator randomly chooses a crossover point where two
+parent chromosomes ‘break’, and then exchanges the chromosome parts after
+that point. As a result, two new offspring are created.<br>
+		&nbsp &nbsp If a pair of chromosomes does not cross over, then chromosome cloning takes
+place, and the offspring are created as exact copies of each parent.<br><br>
+
+		<h3>What does mutation represent?</h3>
+	   &nbsp &nbsp Mutation, which is rare in nature, represents a change in the gene. It may lead to
+a significant improvement in fitness, but more often has rather harmful results.<br><br>
+	   <h3>How does the mutation operator work?</h3>
+	   &nbsp &nbsp The mutation operator flips a randomly selected gene in a chromosome.Mutation can occur at
+any gene in a chromosome with some probability. The mutation probability is
+quite small in nature, and is kept quite low for GAs, typically in the range
+between 0.001 and 0.01.
+Genetic algorithms assure<br><br>
+
+		
+
+		</div>
+
+
+		
+	   <br><br>
+	   <a onclick="Layer_HideOrShow('Anno');"><h2>Annotation Space</h2></a>
+	   
+	   <div id="Anno" style="display:none">
+	   <script id="tanno" name="content" type="text/plain">
+	    <?php
+			
+			while($row = mysql_fetch_array($danno))
+			{
+				echo $row['anno'];
+				echo "<br />";
+			}
+			
+		?>
+		
+
+		
+		
+	    
+	   </script>
+	   	<script type="text/javascript">
+        var ue = UE.getEditor('tanno');
+    </script
+	   
+	   	<center>
+	   <input type="button" name="button" id="button" value="Update" onClick="update_anno(this.form)" />
+		</center>
+	   	   </div>
+	   
+	   
+	   	   <br><br>
+	   <a onclick="Layer_HideOrShow('Glossary');"><h2>Glossary</h2></a>
+	   
+	   <div id="Glossary" style="display:none">
+	   <script id="tglo" name="content" type="text/plain">
+	    <?php
+			
+			while($row = mysql_fetch_array($dglo))
+			{
+				echo $row['Glossary'];
+				echo "<br />";
+			}
+			
+		?>
+		
+
+		
+		
+	    
+	   </script>
+	   	<script type="text/javascript">
+        var ue = UE.getEditor('tglo');
+    </script>
+	   	<center>
+	   <input type="button" name="button" id="button" value="Update" onClick="update_glo(this.form)" />
+		</center>
+	   </div>
+	   
+	   
+	   
+	   
+	      <br><br>
+	   <a onclick="Layer_HideOrShow('commonmis');"><h2>Common Mistakes</h2></a>
+	   <div id="commonmis" style="display:none">
+	
+	   
+	   <br>
+	   <h3> &nbsp &nbsp Learning rate too small</h3>
+		<br>
+
+	   <h3> &nbsp &nbsp Unsuitable fitness function</h3>
+		<br><br>
+
+		
+
+		</div>
+
+		
+		
+		
+	   
+	   
+	   
+	   
+	   
+		<br>
+		<br>
+		<br>
+		<a onclick="Layer_HideOrShow('scribble');"><h2>I want to scribble</h2></a>
+		<br>
+	   
+	    <div id="scribble" style="display:none">
+	    <script id="tscribble" name="content" type="text/plain">
+	    <?php
+	   		while($row = mysql_fetch_array($dscribble))
+			{
+				echo $row['scribble'];
+				echo "<br />";
+			}
+		
+	   ?>
+	   </script>
+	 
+	   	   	<script type="text/javascript">
+        var ue = UE.getEditor('tscribble');
+    </script>
+
+	
+	 
+	 
+		<center>
+	   <input type="button" name="button" id="button" value="Update" onClick="update_scribble(this.form)" />
+		</center>
+		</div>
+	 
+	   <br><br>
+	   <a onclick="Layer_HideOrShow('review');"><h2>Review questions</h2></a>
+	   <br>
+	   <div id="review" style="display:none">
+	   
+	   1. How to evaluate the fitness?
+	   <br><br>
+	   2. How is encoding done?
+	   
+	   </div>
+	   <br><br>
+	   <a onclick="Layer_HideOrShow('other');"><h2>Other says</h2></a>
+	   <br>
+	   
+	   <div id="other">
+	   
+	   </div>
+	   
+	   <br>
+	   <br>
+	   <a href="further.html"><h2>I want a challenge question!</h2></a>
+	   <br>
+	   
+
+	   <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+
+       <div class="clear"></div>
+	  
+	   </div>
+    </nav>
+    <main id="panel">
+      <header>
+        <button class="toggle-button">☰</button>
+        <h2>Panel</h2>
+      </header>
+    </main>
+	<script src="slideout.min.js"></script>
+    <script>
+      var slideout = new Slideout({
+        'panel': document.getElementById('panel'),
+        'menu': document.getElementById('menu'),
+        'padding': 256,
+        'tolerance': 70,
+		'side':'right'
+      });
+
+      // Toggle button
+      document.querySelector('.toggle-button').addEventListener('click', function() {
+        slideout.toggle();
+      });
+    </script>
+	</aside>
+        <?php //echo $OUTPUT->blocks('side-post', $sidepost); ?>
+    </div>
+
+    <footer id="page-footer">
+        <div id="course-footer"><?php echo $OUTPUT->course_footer(); ?></div>
+        <p class="helplink"><?php echo $OUTPUT->page_doc_link(); ?></p>
+        <?php
+        echo $html->footnote;
+        echo $OUTPUT->login_info();
+        echo $OUTPUT->home_link();
+        echo $OUTPUT->standard_footer_html();
+        ?>
+    </footer>
+
+    <?php echo $OUTPUT->standard_end_of_body_html() ?>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<title>Easy Learning!</title>
+
+<script language=JavaScript> 
+ function init(){
+  document.form1.username.focus();
+  }
+ function blu(){
+  var space=document.form1.username.value;
+  if(space==""){
+   document.getElementById("sp").innerHTML="<font color='red'>The name can not be blank !</font>";
+   }
+  else {
+   document.getElementById("sp").innerHTML="";
+   }
+  }
+ function funpsd(){
+  var psd=document.form1.psd.value
+  if(psd==""){
+   document.getElementById("sp1").innerHTML="<font color='red'>The name can not be blank !</font>";
+   }
+  else if(psd.length<6 || psd.length>15){
+   document.getElementById("sp1").innerHTML="<font color='red'>The size of your password should between 6-15.</font>";
+   }
+  else {
+   document.getElementById("sp1").innerHTML="";
+   }
+  }
+ function funcpsd(){
+  var psd1=document.form1.psd.value;
+  var psd2=document.form1.cpsd.value;  //变量赋值在前
+  if(psd1!=psd2){
+   document.getElementById("sp2").innerHTML="<font color='red'>Passwords do not match, please input again !</font>";
+   document.form1.psd.select();
+   //psd2="" //把变量清空，但document.form1.cpsd.value还是原来的值，并没有清空document.form1.cpsd.value的值
+   document.form1.cpsd.value="";
+   }
+  else{
+   document.getElementById("sp2").innerHTML="";
+   }
+  }
+
+ function checkemail(){
+  alert("the email can not be blank！");
+  }
+</script>
+
+
+<link href="./css/main.css" rel="stylesheet" type="text/css">
+<link href="./css/common.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" media="all" type="text/css" href="./css/pop.css"> 
+<link href="./css/lesson.css" rel="stylesheet" type="text/css">
+<link href="./css/lesson_com.css" rel="stylesheet" type="text/css">
+<link href="./css/mainview.css" rel="stylesheet" type="text/css" id="skin_css">
+<link href="./css/view.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+body,td,th {
+	color: #000;
+}
+</style>
+</head>
+<body id="c_page_bg" onblur="bookBlur();" onfocus="bookFocus();" onload="bookFocus();">
+
+ <div id="sm_header">
+	<div class="bannerBg_auto">
+	 	  <div class="banner" style="background-image:url(img/title.jpg);background-color:#F4EEE0;">
+	    <div class="banner960">
+		</div>
+	  </div>
+	</div>
+	<div class="menu_shadow">
+	 <div class="menu_auto">
+	  <div class="menu">
+	    <a href="index.php">Home</a><a  href="index.php">Learning</a><a class="tabOn" href="login.html">Login</a>
+		 </div>
+	 </div>
+    </div>
+  </div>
+
+<div id="sm_center" class="smMargin_12">
+   <div class="shadow_leftBorder">
+    <div class="shadow_rightBorder">
+    <div class="nopadding_border">
+      <div class="contain_lrPad20">
+        <div class="knowledge_title">
+          <h2>Join Us</h2>
+     </div>
+
+	 <div>
+          <fieldset>  
+        <form name="RegForm" method="post" action="reg.php" > 
+             <!-名字输入->
+       <p>  
+         <span class="emphasize">*</span><label for="username" class="label">User name:</label> <br>
+         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<input id="username" name="username" type="text" class="input" onBlur="blu();" /> 
+                    <span>(Length:3-15,only NUMBER and CHARACATER)</span> <p/>
+             <!-性别选择->
+      
+              <p><label for="usersex" class="label">User sex:</label> <p/>
+        
+              <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <label for="male" class="label" >male</label>
+             <input  name="sex" id="male"  type="radio" value="male" class="input"/>
+            <br />
+           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span><label for="female" class="label">female</label>
+          <input name="sex" id="female" type="radio" value="femle" class="input"/> </span></p>
+
+           <!-密码输入->
+       <p> 
+         <span class="emphasize">&nbsp;*</span><label for="password" class="label" onBlur="funpsd();" >Password:</label> 
+		 <br>
+         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  <input id="password" name="password" type="password" class="input" /> 
+                       <span>(Length:6-15,only NUMBER and CHARACATER)</span> <p/> 
+          <!-确认密码->
+       <p> 
+         <span class="emphasize">&nbsp;*</span><label for="passwordcheck" class="label" onBlur="funcpsd();" >Password confirm:</label> 
+         <br>
+		 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  <input id="passwordcheck" name="passwordcheck" type="password" class="input" /> 
+                          
+           <!-年级输入->
+      
+       <p><label for="username1" class="label"> Grade
+  <br>
+  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  <select name="grade" id="grade">
+    <option>2010</option>
+    <option>2011</option>
+    <option>2012</option>
+    <option>2013</option>
+    <option>2014</option>
+    <option>2015</option>
+    <option>2016</option>
+  </select>
+  </label><p/>
+       <!-班级输入->
+         <p>&nbsp;</p>
+        <p>&nbsp;<p/>
+       <p>  
+         <label for="class" class="label">Class:</label> 
+         <br>
+		 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  <input id="class" name="class" type="text" class="input"  /> 
+         <span>(only NUMBER )</span> <p/>
+                 
+        <!-email输入 ->
+        
+       <p> 
+         <span class="emphasize">*</span><label for="email" class="label" onBlur="checkemail();" >Email:</label> 
+		<br>
+		&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  <input id="email" name="email" type="text" class="input" /> <p/>
+        <!-QQ输入->
+       <p> 
+          <label for="QQ" class="label">QQ:</label> 
+		<br>	
+		&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  <input id="QQ" name="QQ" type="text" class="input" /> <p/>
+        <!-一键加入->
+		<br>
+        <p><input name="submit" value="submit" type="submit"/>  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        <span><input name="reset" value="reset" type="reset"/></span><p/>
+       
+      
+
+</form>  
+</fieldset>
+</div>
+	 
+	 
+	 
+	 
+     </div>
+
+     <div class="course_mainArea">
+       <div class="column_580 left">
+         <div class="book_pad18">
+
+ 
+         </div>
+       </div>
+	   
+       <div class="clear"></div>
+     </div>
+	</div>
+	</div>
+	</div>
+   </div>   
+   
+<!--  Page Footer --start-->
+ 
+  <div id="sm_footer">
+    <div id="footer">
+	2014 Easy-Learning Team. 
+	</div>
+  </div> 
+<div id="endtop"></div>
+</body>
+</html>

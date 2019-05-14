@@ -1,0 +1,40 @@
+
+
+#c_page_bg{
+background-color:#F5F1E8;
+}
+.bannerBg_auto{
+background-image:url(../img/header_bg.png);
+background-color:#aaa;
+}
+.menu_auto{
+background:#77380D;
+color:#fff;
+}
+.menu_auto a{
+color:#FFFFFF;
+}
+.menu_auto li:hover a{
+background:#FFFFFF;
+color:#77380D;
+}
+.menu_auto a:hover{
+background-color:#FFFFFF;
+color:#77380D;
+}
+.menu_auto a.tabOn{
+background-color:#FFFFFF;
+color:#77380D;
+}
+.list_menu{
+background:#77380D;
+}
+.list_menu a{
+background-color:#FFFFFF;
+color:#77380D;
+}
+
+.list_menu a.on,
+.list_menu a:hover{
+background-color:#f3f3f3;
+}

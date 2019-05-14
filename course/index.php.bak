@@ -1,0 +1,581 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?php session_start(); 
+	if(isset($_SESSION['nowuser'])){
+	$username= $_SESSION['nowuser']; 
+	$tscribble=$_POST['data'];
+	
+	include('comm.php');
+	$dscribble = mysql_query( "select scribble from user  WHERE   username = '".$username."'");
+	$danno = mysql_query( "select anno from user  WHERE   username = '".$username."'");
+	$dglo = mysql_query( "select Glossary from user  WHERE   username = '".$username."'");
+	
+	}
+?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" lang="en-US">
+
+<title>Easy Learning!</title>
+<link href="./css/main.css" rel="stylesheet" type="text/css">
+<link href="./css/common.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" media="all" type="text/css" href="./css/pop.css"> 
+<link href="./css/lesson.css" rel="stylesheet" type="text/css">
+<link href="./css/lesson_com.css" rel="stylesheet" type="text/css">
+<link href="./css/mainview.css" rel="stylesheet" type="text/css" id="skin_css">
+<link href="./css/view.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="ueditor.config.js"></script>
+<script type="text/javascript" src="ueditor.all.min.js"></script>
+<script type="text/javascript" src="js/update.js"></script>
+<script src="js/jquery-1.3.2.min.js" type=text/javascript></script>
+<style type="text/css">
+body,td,th {
+	color: #000;
+}
+</style>
+
+
+<script language=javascript>
+
+function Layer_HideOrShow(cur_div)  
+
+{ var current=document.getElementById(cur_div);  
+
+   if(current.style.display=="none")  
+
+     {  
+
+current.style.display ="";  
+
+     }  
+
+   else  
+
+    {  
+
+current.style.display ="none";  
+
+    }  
+
+}  
+
+    function deleteEditor() {
+        
+        UE.getEditor('tdefs').destroy();
+		
+    }
+	
+	    function createEditor() {
+        
+        UE.getEditor('tdefs');
+    }
+
+</script>
+
+
+</head>
+<body id="c_page_bg" onblur="bookBlur();" onfocus="bookFocus();" onload="bookFocus();">
+
+ <div id="sm_header">
+	<div class="bannerBg_auto">
+	 	  <div class="banner" style="background-image:url(img/title.jpg);background-color:#F4EEE0;">
+	    <div class="banner960">
+		</div>
+	  </div>
+	</div>
+	<div class="menu_shadow">
+	 <div class="menu_auto">
+	  <div class="menu">
+	    <a href="index.php">Home</a><a class="tabOn" href="index.php">Learning</a><a href="login.html">Login</a>
+		<?php echo $_SESSION['nowuser'] ?>
+		 </div>
+	 </div>
+    </div>
+  </div>
+
+<div id="sm_center" class="smMargin_12">
+   <div class="shadow_leftBorder">
+    <div class="shadow_rightBorder">
+    <div class="nopadding_border">
+      <div class="contain_lrPad20">
+        <div class="knowledge_title">
+          <h2>Genetic Algorithm</h2>
+     </div>
+<h1>Introductions</h1>
+<div class="IntroFont">&nbsp &nbsp  Genetic algorithm(GA)  simulates evolution by using the processes of selection, mutation and reproduction. <br>
+&nbsp &nbsp Generally, a GA can be represented by a sequence of procedural steps for moving from one population of artificial ‘chromosomes’ to a new population. Each chromosome consists of a number of ‘genes’, and each gene is represented by 0 or 1, as shown in Figure 1. 
+<br><center>
+<img src="img/figure7-1.png"  />
+<br>Figure 1<br>
+</center>
+<br>&nbsp &nbsp Two mechanisms link a GA to the problem it is solving: encoding and evaluation. The most popular encoding is to represented chromosomes as strings of ones and zeros (binary string representation). An evaluation function is used to measure the chromosome’s performance, or fitness, for the problem to be solved. After a number of successive reproductions, the less fit chromosomes become extinct, while those best able to survive gradually come to dominate the population. 
+
+</div>
+     </div>
+     <div class="course_mainArea">
+       <div class="column_580 left">
+         <div class="book_pad18">
+
+<br><h2>Methods</h2>
+<br>
+ &nbsp &nbsp  We start with a definition: genetic algorithms are a class of stochastic search algorithms based on biological evolution. Given a clearly defined problem to be solved and a binary string representation for candidate solutions, a basic GA can be represented as in Figure 2. A GA applies the following major steps (Davis, 1991; Mitchell, 1996):
+<br><br>
+Step 1: 
+<br><br>&nbsp &nbsp Represent the problem variable domain as a chromosome of a fixed length, choose the size of a chromosome population N, the crossover probability pc  and the mutation probability pm .
+
+<br><br>
+Step 2: 
+<br><br> &nbsp &nbsp Define a fitness function to measure the performance, or fitness, of an individual chromosome in the problem domain. The fitness function establishes the basis for selecting chromosomes that will be mated during reproduction.<br><br>
+Step 3: 
+<br><br> &nbsp &nbsp Randomly generate an initial population of chromosomes of size N: x1, x2, ... , xN<br><br>
+Step 4: 
+<br><br> &nbsp &nbsp Calculate the fitness of each individual chromosome: f(x1),f(x2) ...... f(xN)<br><br>
+
+Step 5: 
+<br><br> &nbsp &nbsp Select a pair of chromosomes for mating from the current population.
+Parent chromosomes are selected with a probability related to their fitness. Highly fit chromosomes have a higher probability of being selected for mating than less fit chromosomes.<br><br>
+
+Step 6: 
+<br><br> &nbsp &nbsp Create a pair of offspring chromosomes by applying the genetic operators – crossover and mutation.<br><br>
+
+Step 7: 
+<br><br> &nbsp &nbsp Place the created offspring chromosomes in the new population.<br><br>
+
+Step 8: 
+<br><br> &nbsp &nbsp Repeat Step 5 until the size of the new chromosome population becomes equal to the size of the initial population, N.<br><br>
+
+Step 9: 
+<br><br> &nbsp &nbsp Replace the initial  (parent)  chromosome population with the new (offspring) population.<br><br>
+
+Step 10: 
+<br><br> &nbsp &nbsp Go to Step 4, and repeat the process until the termination criterion is satisfied.<br><br>
+
+<br><center>
+<img src="img/figure7-2.png"  />
+<br>Figure 2<br>
+</center>
+
+<br><br><h2>Examples</h2><br>
+&nbsp &nbsp Let us find the
+maximum value of the function (15x - x^2) where parameter x varies between 0
+and 15. For simplicity, we may assume that x takes only integer values. Thus,
+chromosomes can be built with only four genes:
+<br><br><center>
+<img src="img/example1.png"  />
+<br><br>
+</center>
+&nbsp &nbsp Suppose that the size of the chromosome population N is 6, the crossover
+probability pc equals 0.7, and the mutation probability pm equals 0.001. (The
+values chosen for pc and pm are fairly typical in GAs.) The fitness function in our
+example is defined by
+<br><br><center>
+<img src="img/example2.png"  />
+<br>
+</center>
+&nbsp &nbsp The GA creates an initial population of chromosomes by filling six 4-bit
+strings with randomly generated ones and zeros. The initial population might
+look like that shown in Table 1. The `chromosomes’ initial locations on the
+fitness function are illustrated in Figure 3(a).
+<br><br><br><center>
+<img src="img/table7-1.png"  />
+<br>
+<br>Table1<br><br>
+</center>
+
+<br><br><center>
+<img src="img/figure7-3.png"  />
+<br>
+<br>Figure3<br><br>
+</center>
+&nbsp &nbsp The next step is to calculate the fitness of each individual chromosome. The
+results are also shown in Table 1. The average fitness of the initial population is
+36. In order to improve it, the initial population is modified by using selection,
+crossover and mutation, the genetic operators.<br>
+&nbsp &nbsp In natural selection, only the fittest species can survive, breed, and thereby
+pass their genes on to the next generation. GAs use a similar approach, but unlike nature, the size of the chromosome population remains unchanged from
+one generation to the next.
+
+
+
+
+<br>
+<br><br><h2>Decoding</h2><br>
+
+
+&nbsp &nbsp In this section we suppose it is desired to find the maximum of the ‘peak’ function of two variables: <br>
+<br><br><center>
+<img src="img/dec-4.png"  />
+<br><br>
+</center>
+&nbsp &nbsp where parameters x and y vary between -3 and 3.<br>
+&nbsp &nbsp The first step is to represent the problem variables as a chromosome. In other
+words, we represent parameters x and y as a concatenated binary string:
+<br><br><center>
+<img src="img/dec-5.png"  />
+<br><br>
+</center>
+&nbsp &nbsp In which each parameter is represented by eight binary bits.<br>
+&nbsp &nbsp Then, we choose the size of the chromosome population, for instance 6, and
+randomly generate an initial population.<br>
+&nbsp &nbsp The next step is to calculate the fitness of each chromosome. This is done in two stages. First, a chromosome is decoded by converting it into two real numbers, x and y, in the interval between -3 and 3. Then the decoded values of x and y are substituted into the ‘peak’ function.<br><br>
+
+&nbsp &nbsp And,how is decoding done?<br>
+&nbsp &nbsp First, a chromosome, that is a string of 16 bits, is partitioned into two 8-bit
+strings:<br><br>
+(10001010)₂ and (00111011)₂ <br><br>
+&nbsp &nbsp Then these strings are converted from binary (base 2) to decimal (base 10):<br><br>
+(10001010)₂ = (138)₁₀   (00111011)₂ = (59)₁₀  <br><br>
+&nbsp &nbsp Now the range of integers that can be handled by 8-bits, that is the range from 0
+to (2^8 -1), is mapped to the actual range of parameters x and y, that is the range
+from -3 to 3:
+
+<br><br><center>
+<img src="img/dec-1.png"  />
+<br><br>
+</center>
+To obtain the actual values of x and y, we multiply their decimal values by
+0.0235294 and subtract 3 from the results:
+<br><br><center>
+<img src="img/dec-2.png"  />
+<br><br>
+
+<h2>and</h2>
+<br><br>
+<img src="img/dec-3.png"  />
+<br><br>
+</center>
+
+&nbsp &nbsp When necessary, we can also apply other decoding techniques, such as Gray
+coding (Caruana and Schaffer, 1988).<br>
+&nbsp &nbsp Using decoded values of x and y as inputs in the mathematical function, the
+GA calculates the fitness of each chromosome.<br><br>
+&nbsp &nbsp To find the maximum of the ‘peak’ function, we will use crossover with the
+probability equal to 0.7 and mutation with the probability equal to 0.001. As we
+mentioned earlier, a common practice in GAs is to specify the number of
+generations. Suppose the desired number of generations is 100. That is, the GA
+will create 100 generations of 6 chromosomes before stopping.<br>
+
+
+&nbsp &nbsp Figure 4(a) shows the initial locations of the chromosomes on the surface
+and contour plot of the ‘peak’ function. Each chromosome here is represented by
+a sphere. The initial population consists of randomly generated individuals that
+are dissimilar or heterogeneous. However, starting from the second generation,
+crossover begins to recombine features of the best chromosomes, and the
+population begins to converge on the peak containing the maximum, as shown
+in Figure 4(b). From then until the final generation, the GA is searching around
+this peak with mutation, resulting in diversity. Figure 4(c) shows the final
+chromosome generation. However, the population has converged on a chromosome
+lying on a local maximum of the ‘peak’ function.<br>
+
+
+&nbsp &nbsp But we are looking for the global maximum, so can we be sure the search is for
+the optimal solution? The most serious problem in the use of GAs is concerned
+with the quality of the results, in particular whether or not an optimal solution is being reached. One way of providing some degree of insurance is to compare
+results obtained under different rates of mutation. Let us, for example, increase
+the mutation rate to 0.01 and rerun the GA. The population might now converge
+on the chromosomes shown in Figure 4(d). However, to be sure of steady
+results we must increase the size of the chromosome population.<br>
+
+
+&nbsp &nbsp A surface of a mathematical function of the sort given in Figure 4 is a
+convenient medium for displaying the GA’s performance. However, fitness
+functions for real world problems cannot be easily represented graphically.
+Instead, we can use performance graphs.<br>
+
+<br><br><center>
+<img src="img/figure7-6-1.png"  />
+<br>
+<br>Figure4 (a) initial population<br><br>
+</center>
+<br><br><center>
+<img src="img/figure7-6-2.png"  />
+<br>
+<br>Figure4 (b) first generation<br><br>
+</center>
+<br><br><center>
+<img src="img/figure7-6-3.png"  />
+<br>
+<br>Figure4 (c) local maximum solution<br><br>
+</center>
+<br><br><center>
+<img src="img/figure7-6-4.png"  />
+<br>
+<br>Figure4 (d) global maximum solution<br><br>
+</center>
+
+
+<br>
+<br><br><h2>Performance Graphs</h2><br>
+
+&nbsp &nbsp Since genetic algorithms are stochastic, their performance usually varies from
+generation to generation. As a result, a curve showing the average performance
+of the entire population of chromosomes as well as a curve showing the
+performance of the best individual in the population is a useful way of
+examining the behaviour of a GA over the chosen number of generations.<br>
+&nbsp &nbsp Figures 5(a) and (b) show plots of the best and average values of the fitness
+function across 100 generations. The x-axis of the performance graph indicates
+how many generations have been created and evaluated at the particular point
+in the run, and the y-axis displays the value of the fitness function at that point.<br>
+&nbsp &nbsp The erratic behaviour of the average performance curves is due to mutation.
+The mutation operator allows a GA to explore the landscape in a random
+manner. Mutation may lead to significant improvement in the population
+fitness, but more often decreases it. To ensure diversity and at the same time to
+reduce the harmful effects of mutation, we can increase the size of the
+chromosome population. Figure 6 shows performance graphs for 20 generations
+of 60 chromosomes. The best and average curves represented here are
+typical for GAs. As you can see, the average curve rises rapidly at the beginning of
+the run, but then as the population converges on the nearly optimal solution, it
+rises more slowly, and finally flattens at the end.<br>
+
+
+<br><br><center>
+<img src="img/figure7-7-1.png"  />
+<br>
+<br>Figure5 (a)<br><br>
+</center>
+<br><br><center>
+<img src="img/figure7-7-2.png"  />
+<br>
+<br>Figure5 (b)<br><br>
+</center>
+<br><br><center>
+<img src="img/figure7-8.png"  />
+<br>
+<br>Figure6<br><br> 	
+</center>
+
+
+<br>
+<br><br><h2>Demonstrations</h2><br>
+<center>
+<a href="swf/extreme_value_of_function.swf" >Get the extreme value of function using GA</a>
+<br><br>
+<a href="swf/maintenance_power_upply_system.swf" >maintenance power supply system using GA</a>
+</center>
+
+
+
+<br><br><br><br><br><br><br><br><br><br>
+         </div>
+       </div>
+	   <br><br><br><br><br>
+	   <div class="column_250">
+       <a onclick="Layer_HideOrShow('defs');">
+	   <form id="form1" name="form1" method="post" action="shiti13.php">
+	   <h2>Definitions</h2><br></a>
+	   <div id="defs" style="display:none">
+	   
+	   
+	   
+		
+
+	   <h3>Genetic algorithm</h3>
+	   &nbsp &nbsp Genetic algorithm is a search heuristic that mimics the process of natural selection.<br><br>
+	   <h3>GA</h3>
+	   &nbsp &nbsp GA is the abbreviation of Genetic algorithm.<br><br>
+	   <h3>Crossover</h3>
+	   &nbsp &nbsp Crossover is a genetic operator used to vary the programming of a chromosome or chromosomes from one generation to the next. It is analogous to reproduction and biological crossover, upon which genetic algorithms are based. Cross over is a process of taking more than one parent solutions and producing a child solution from them.<br><br>
+	   <h3>Mutation</h3>
+	   &nbsp &nbsp Mutation is a genetic operator used to maintain genetic diversity from one generation of a population of genetic algorithm chromosomes to the next. It is analogous to biological mutation. Mutation alters one or more gene values in a chromosome from its initial state.<br><br>
+	   <h3>Fitness</h3>
+	   &nbsp &nbsp Fitness is a central idea in evolutionary theory. It can be defined either with respect to a genotype or to a phenotype in a given environment.In either case, it describes the ability to both survive and reproduce, and is equal to the average contribution to the gene pool of the next generation that is made by an average individual of the specified genotype or phenotype.<br><br>
+	   <h3>Fitness Function</h3>
+	   &nbsp &nbsp A fitness function is a particular type of objective function that is used to summarise, as a single figure of merit, how close a given design solution is to achieving the set aims.<br><br>
+	   <h3>Roulette Wheel Selection</h3>
+	   &nbsp &nbsp Roulette Wheel Selection ,also known as fitness proportionate selection is a genetic operator used in genetic algorithms for selecting potentially useful solutions for recombination.<br><br>
+	   <h3>Optimal solution</h3>
+	   &nbsp &nbsp Optimal solution is the problem of finding the best solution from all feasible solutions.<br><br>
+	
+	   
+	    </form>
+
+	   </div>
+	
+
+	
+	   <br><br>
+	   <a onclick="Layer_HideOrShow('facts');"><h2>Facts</h2></a>
+	   <div id="facts" style="display:none">
+	
+	   
+	   
+	   <h3>How does the crossover operator work?</h3>
+	   &nbsp &nbsp First, the crossover operator randomly chooses a crossover point where two
+parent chromosomes ‘break’, and then exchanges the chromosome parts after
+that point. As a result, two new offspring are created.<br>
+		&nbsp &nbsp If a pair of chromosomes does not cross over, then chromosome cloning takes
+place, and the offspring are created as exact copies of each parent.<br><br>
+
+		<h3>What does mutation represent?</h3>
+	   &nbsp &nbsp Mutation, which is rare in nature, represents a change in the gene. It may lead to
+a significant improvement in fitness, but more often has rather harmful results.<br><br>
+	   <h3>How does the mutation operator work?</h3>
+	   &nbsp &nbsp The mutation operator flips a randomly selected gene in a chromosome.Mutation can occur at
+any gene in a chromosome with some probability. The mutation probability is
+quite small in nature, and is kept quite low for GAs, typically in the range
+between 0.001 and 0.01.
+Genetic algorithms assure<br><br>
+
+		
+
+		</div>
+
+
+		
+	   <br><br>
+	   <a onclick="Layer_HideOrShow('Anno');"><h2>Annotation Space</h2></a>
+	   
+	   <div id="Anno" style="display:none">
+	   <script id="tanno" name="content" type="text/plain">
+	    <?php
+			
+			while($row = mysql_fetch_array($danno))
+			{
+				echo $row['anno'];
+				echo "<br />";
+			}
+			
+		?>
+		
+
+		
+		
+	    
+	   </script>
+	   	<script type="text/javascript">
+        var ue = UE.getEditor('tanno');
+    </script
+	   
+	   	<center>
+	   <input type="button" name="button" id="button" value="Update" onClick="update_anno(this.form)" />
+		</center>
+	   	   </div>
+	   
+	   
+	   	   <br><br>
+	   <a onclick="Layer_HideOrShow('Glossary');"><h2>Glossary</h2></a>
+	   
+	   <div id="Glossary" style="display:none">
+	   <script id="tglo" name="content" type="text/plain">
+	    <?php
+			
+			while($row = mysql_fetch_array($dglo))
+			{
+				echo $row['Glossary'];
+				echo "<br />";
+			}
+			
+		?>
+		
+
+		
+		
+	    
+	   </script>
+	   	<script type="text/javascript">
+        var ue = UE.getEditor('tglo');
+    </script>
+	   	<center>
+	   <input type="button" name="button" id="button" value="Update" onClick="update_glo(this.form)" />
+		</center>
+	   </div>
+	   
+	   
+	   
+	   
+	      <br><br>
+	   <a onclick="Layer_HideOrShow('commonmis');"><h2>Common Mistakes</h2></a>
+	   <div id="commonmis" style="display:none">
+	
+	   
+	   <br>
+	   <h3> &nbsp &nbsp Learning rate too small</h3>
+		<br>
+
+	   <h3> &nbsp &nbsp Unsuitable fitness function</h3>
+		<br><br>
+
+		
+
+		</div>
+
+		
+		
+		
+	   
+	   
+	   
+	   
+	   
+	   <br>
+	   <br><br>
+	   <a onclick="Layer_HideOrShow('scribble');"><h2>I want to scribble</h2></a>
+
+	   <br>
+	   
+	   <div id="scribble" style="display:none">
+	   <script id="tscribble" name="content" type="text/plain">
+	   <?php
+	   		while($row = mysql_fetch_array($dscribble))
+			{
+				echo $row['scribble'];
+				echo "<br />";
+			}
+		
+	   ?>
+	   </script>
+	 
+	   	   	<script type="text/javascript">
+        var ue = UE.getEditor('tscribble');
+    </script>
+
+	
+	 
+	 
+		<center>
+	   <input type="button" name="button" id="button" value="Update" onClick="update_scribble(this.form)" />
+		</center>
+		</div>
+	 
+	   <br><br>
+	   <a onclick="Layer_HideOrShow('review');"><h2>Review questions</h2></a>
+	   <br>
+	   <div id="review" style="display:none">
+	   
+	   1. How to evaluate the fitness?
+	   <br><br>
+	   2. How is encoding done?
+	   
+	   </div>
+	   <br><br>
+	   <a onclick="Layer_HideOrShow('other');"><h2>Other says</h2></a>
+	   <br>
+	   
+	   <div id="other">
+	   
+	   </div>
+	   
+	   <br><br>
+	   <a href="further.html"><h2>I want a challenge question!</h2></a>
+	   <br>
+	   
+
+	   <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+
+       <div class="clear"></div>
+	  
+	   </div>
+     </div>
+	</div>
+	</div>
+	</div>
+   </div>   
+   
+<!--  Page Footer --start-->
+ 
+  <div id="sm_footer">
+    <div id="footer">
+	2014 Easy-Learning Team. 
+	</div>
+  </div> 
+<div id="endtop"></div>
+</body>
+</html>
