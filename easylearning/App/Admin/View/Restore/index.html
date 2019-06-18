@@ -1,0 +1,148 @@
+{:W('TopBar/topbar')}
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+			<div class="main-container-inner">
+				<a class="menu-toggler" id="menu-toggler" href="#">
+					<span class="menu-text"></span>
+				</a>
+
+				{:W('TopBar/leftbar')}
+
+				<div class="main-content">
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<ul class="breadcrumb">
+							<li>
+								<i class="icon-home home-icon"></i>
+								<a href="{:U('Index/index')}">首页</a>
+							</li>
+
+							<li>
+								<a href="#">备份管理</a>
+							</li>
+							<li class="active">数据恢复</li>
+						</ul><!-- .breadcrumb -->
+
+					</div>
+
+					<div class="page-content">
+						<div class="page-header">
+						 	 
+						</div>
+
+						<div class="row">
+							<div class="col-xs-12">
+								<!-- PAGE CONTENT BEGINS -->
+
+								<div class="row">
+									<div class="col-xs-12">
+										<div class="table-responsive table_list">
+											<table id="sample-table-1" class="table table-striped table-bordered table-hover">
+												<thead>
+													<tr>
+														
+														<th>备份名称</th>
+														<th>文件大小</th>
+														<th>备份时间</th>
+														<th>管理操作</th>
+														
+													</tr>
+												</thead>
+
+												<tbody>
+												 <volist name="backups" id="val">
+										            <tr class="collapsed" >
+										                <td>
+										                    <span style="padding-left: 20px" name="{$val.name}" class="expander" id="{$val.id}"onclick="showC(this)"></span>
+										                    {$val.name}
+										                </td>
+										                <td>{$val.total_size}kb</td>
+										                <td>{$val.date_str}</td>
+										                <td>
+										                    <a onclick="if(confirm('确认删除?')) location.href='{:U('Restore/del', array('backup'=>$val['name']))}'" href="javascript:void(0);"  >删除</a> | 
+										                    <a onclick="if(confirm('确定恢复吗?')) location.href='{:U('Restore/import', array('backup'=>$val['name']))}'" href="javascript:void(0);" >恢复</a>
+										                </td>
+										            </tr>
+										            <volist name="val['vols']" id="vol">
+										            <tr id="tr{$val.id}" style="display:none">
+										                <td>{$vol.file}</td>
+										                <td>{$vol.size}kb</td>
+										                <td>{$val.date_str}</td>
+										                <td>
+										                    <a href="{:U('Restore/download', array('backup'=>$val['name'], 'file'=>$vol['file']))}">下载</a>
+										                </td>
+										            </tr>
+										            </volist>
+										            </volist>
+												
+												</tbody>
+											</table>
+											
+										</div><!-- /.table-responsive -->
+										<div class="col-sm-6 pull-right">
+											<div class="dataTables_paginate paging_bootstrap ">
+												<ul class="pagination ">
+												{$page}
+												</ul>
+											</div>
+										</div>
+									</div><!-- /span -->
+								</div><!-- /row -->
+
+							
+
+							
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+					</div><!-- /.page-content -->
+				</div><!-- /.main-content -->
+
+			
+			</div><!-- /.main-container-inner -->
+<include file="Public:footer" />
+<style type="text/css">
+.hide{display:none;}
+#sample-table-1 tr.collapsed td .collaps{
+	background: url(__PUBLIC__/admin/img/tv-collapsable.gif) center center no-repeat;
+}
+#sample-table-1 tr.collapsed td .expander{
+	background: url(__PUBLIC__/admin/img/tv-expandable.gif) center center no-repeat;
+}
+</style>
+
+<script>
+$(function(){
+    $(".show_sub").click(function(){
+        $(this).attr("src",function(){
+            if(this.src == '___PUBLIC__/admin/img/tv-expandable.gif'){
+                return '__PUBLIC__/admin/img/tv-collapsable.gif';
+            } else {
+                return '__PUBLIC__/admin/img/tv-expandable.gif';
+            }
+            var sub_id = $(this).attr('sub');
+           $("tr[parent='"+sub_id+"']").toggle();
+        });
+      
+       
+    });
+    
+});
+function showC(obj){
+	var id=$(obj).attr('id');
+	var trObj=$("#tr"+id);
+	for(var i=0;i<trObj.length;i++){
+		trObj.eq(i).toggle();
+	}
+	if($(obj).attr('class')=='expander'){
+		$(obj).attr('class','collaps');
+	}else{
+		$(obj).attr('class','expander')
+	}
+}
+</script>

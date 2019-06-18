@@ -1,0 +1,157 @@
+{:W('TopBar/topbar')}
+
+
+
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+			<div class="main-container-inner">
+				<a class="menu-toggler" id="menu-toggler" href="#">
+					<span class="menu-text"></span>
+				</a>
+
+				{:W('TopBar/leftbar')}
+
+				<div class="main-content">
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+					<ul class="breadcrumb">
+							<li>
+								<i class="icon-home home-icon"></i>
+								<a href="#">首页</a>
+							</li>
+						</ul><!-- .breadcrumb -->
+
+
+					</div>
+
+					<div class="page-content">
+						<div class="page-header">
+						 <a class="label label-xlg label-primary arrowed " href="{:U('Thirdparty/index')}">
+							返回列表</a>
+
+							<!-- 引入拖拽库 -->
+							<link href='__PUBLIC__/dragula/dragula.css' rel='stylesheet' type='text/css' />
+							<link href='__PUBLIC__/dragula/example/example.css' rel='stylesheet' type='text/css' />
+							<script src='__PUBLIC__/dragula/dragula.js'></script>
+							<script src="__PUBLIC__/admin/js/ace-extra.min.js"></script>
+						
+							
+							
+						</div><!-- /.page-header -->
+
+						<div class="row">
+							<div class="col-xs-7">
+								<!-- PAGE CONTENT BEGINS -->
+
+								<form class="form-horizontal" action=  "{:U('Notecart/submit')}"  method="post" id="myform">
+														<div class="form-group">
+														<p class="label label-xlg label-primary arrowed " >
+																购物车列表</p>
+														
+
+					
+															<div class='parent'>
+																
+																<div class='wrapper'>
+																	  <div  class='container notecart left'>
+																		<volist name='list' id='v'>
+																			<div class="note"  value="{$v['id']}" name="{$i}"><input type="hidden" name="{$i}">
+																				{$v['name']}
+																				<div style="float:right">
+																					<a class="del"  style="cursor: pointer;">[删除]</a>
+																				</div>
+																			</div>
+																			
+																		</volist>
+																	  </div>
+																	 
+																</div>
+																
+															</div>
+														</div>
+									<div class="clearfix form-actions">
+										<div class="col-md-offset-3 col-md-9">
+										<input type="hidden" name="id" value="{$info.id}">
+											<button class="btn btn-info" id="button" type="submit"  value="{$v['id']}">
+												<i class="icon-ok bigger-110"></i>
+												提交
+											</button>
+
+
+										</div>
+									</div>
+								</form>
+							</div><!-- /.col -->
+							<!-- 在右边点击显示每个笔记的内容 -->
+							<div class="col-xs-5">
+							<p class="label label-xlg label-primary arrowed " >
+							在这里显示左边购物车的内容</p>
+							<div>
+								<p id="showNote">test</p>
+							</div>
+							</div>
+						</div><!-- /.row -->
+					</div><!-- /.page-content -->
+				</div><!-- /.main-content -->
+
+
+			</div><!-- /.main-container-inner -->
+
+
+	<include file="Public:footer" />
+
+<script type="text/javascript">
+	
+	
+</script>
+<!-- 点击左边的每一个笔记，在右边显示相应的内容 -->
+<script type="text/javascript">
+	$(function(){
+		//拖动
+		var lefts = document.getElementsByClassName("left");
+		for(var i=0;i<lefts.length;i++){
+			dragula([lefts[i]]);
+		}
+		//点击左侧列表，在右侧显示购物车内容
+		$(".note").click(function(){
+			var nid = $(this).attr('value');
+                
+			$.post("{:U('Notecart/shop')}",{id:nid},
+				function(result){
+					$("#showNote").html(result);
+				}
+				//"json"
+			);
+		});
+/*                      $('#button').click(function(){
+                        var nid = $(this).attr('value');
+
+                        $.post("{:U('Notecart/submit')}",{id:nid},
+                                function(result){
+                                 
+                                }
+                                //"json"
+                        );
+                });
+
+*/		//删除
+		$(".del").click(function(){
+			$(this).parent().parent().remove();
+			var nid = $(this).parent().parent().attr('value');
+			$.post("{:U('Notecart/del')}",{id:nid},
+				function(result){
+					
+				}
+				//"json"
+			);
+		});
+	});
+
+
+</script>

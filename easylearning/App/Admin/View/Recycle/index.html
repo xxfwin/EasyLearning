@@ -1,0 +1,187 @@
+{:W('TopBar/topbar')}
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+			<div class="main-container-inner">
+				<a class="menu-toggler" id="menu-toggler" href="#">
+					<span class="menu-text"></span>
+				</a>
+
+				{:W('TopBar/leftbar')}
+
+				<div class="main-content">
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<ul class="breadcrumb">
+							<li>
+								<i class="icon-home home-icon"></i>
+								<a href="{:U('Index/index')}">首页</a>
+							</li>
+
+							<li>
+								<a href="#">回收站管理</a>
+							</li>
+							<li class="active">回收站列表</li>
+						</ul><!-- .breadcrumb -->
+
+					</div>
+
+					<div class="page-content">
+						<div class="page-header">
+						 	 <form action="" method="get">
+										<div style="margin-bottom:10px;" class="col-sm-11">
+										
+										
+										<div class="col-sm-3" style="margin-left:-24px;">
+											
+											<select   class="form-control"  style="width:110px" name="pid" id="pid">
+												<option value="0">请选择分类</option>
+												 <volist name="info" id="v">
+												 <option value="{$v.id}"<if condition="$Think.get.pid eq $v['id']">selected=selected</if>>{$v.cate}</option>
+													 <volist name="v.child" id="vo">
+													<option value="{$vo.id}" <if condition="$Think.get.pid eq $vo['id']">selected=selected</if>>&nbsp;└-{$vo.cate}</option>
+												  
+												    <volist name="vo.child" id="val">
+													<option value="{$val.id}" <if condition="$Think.get.pid eq $val['id']">selected=selected</if>>&nbsp;&nbsp;└-{$val.cate}</option>
+												   </volist>
+												    </volist>
+												</volist>
+											</select>
+											 
+										</div>
+
+										
+									
+										<span class="input-icon input-icon-right" style="margin-left:-107px;">
+											<input  type="text" id="starTime" placeholder="开始时间" name="starTime" style="height:32px;" value="{$Think.get.starTime}">
+											</span>
+											<span class="input-icon input-icon-right">
+											<input  type="text" id="endTime" placeholder="结束时间" name="endTime"  style="height:32px;" value="{$Think.get.endTime}">
+											</span>
+											<span class="input-icon input-icon-right">
+											<input  type="text" id="title" placeholder="标题" name="title" style="height:32px;" value="{$Think.get.title}">
+											</span>
+											<input  class=" btn-lg btn-success btn btn-xs btn-danger" type="submit" value="搜索">
+										</div>
+										
+										
+						</form>
+						</div>
+
+						<div class="row">
+							<div class="col-xs-12">
+								<!-- PAGE CONTENT BEGINS -->
+
+								<div class="row">
+									<div class="col-xs-12">
+										<div class="table-responsive">
+											<table id="sample-table-1" class="table table-bordered table-hover">
+												<thead>
+													<tr>
+														
+														<th>ID</th>
+														<th>文章标题</th>
+														<th>分类</th>
+														<th>发布人</th>
+														<th>推荐</th>
+														<th>置顶</th>
+														<th>审核</th>
+														<th>排序</th>
+														<th>创建时间</th>
+														<th>操作</th>
+													</tr>
+												</thead>
+
+												<tbody>
+												 <volist name="list" id="v">
+													<tr>
+														<td>
+															{$v.id}
+														</td>
+														<td>{$v.title}</td>
+														<td>{$v.cate}</td>
+														<td>{$v.username}</td>
+														<td>
+														  <span  <if condition="$v.recommend eq '置顶'">class="label label-success arrowed">
+														  <else/>
+														     class="label label-warning arrowed">
+														  </if>	
+														  {$v.recommend}</span>
+														 	
+														  </td>
+														<td>
+														  <span  <if condition="$v.top eq '推荐'">class="label label-success arrowed">
+														  <else/>
+														     class="label label-warning arrowed">
+														  </if>	
+														  {$v.top}</span>
+														 	
+														  </td>
+														  <td>
+														  <span  <if condition="$v.audit eq '审核通过'">class="label label-success arrowed">
+														  <elseif condition="$v.audit eq '审核不通过'" />
+														     class="label label-danger arrowed">
+														   <else/>  
+														    class="label label-info  arrowed">
+														  </if>	
+														  {$v.audit}</span>
+														 	
+														  </td>
+														<td>
+															<span class="badge badge-purple">{$v.sort}</span>
+															
+														</td>
+														<td>
+															{$v.time|date='Y-m-d H:i:s',###}
+															
+														</td>
+														<td>
+															<div class="btn-group">
+																
+
+																<a  onclick="if(confirm('确认要恢复吗?')) location.href='{:U('Recycle/restore',array('id'=>$v[id]))}'"  href="javascript:;"  class="btn btn-xs btn-info">
+																	<i class="icon-edit bigger-120"></i>
+																</a>
+																
+																<a onclick="if(confirm('确认要清空吗?')) location.href='{:U('Recycle/del',array('id'=>$v[id]))}'"  href="javascript:;"  class="btn btn-xs btn-danger">
+																	<i class="icon-trash bigger-120"></i>
+																</a>
+
+																
+															</div>
+
+															
+														</td>
+													</tr>
+												</volist>
+												
+												</tbody>
+											</table>
+											
+										</div><!-- /.table-responsive -->
+										<div class="col-sm-6 pull-right">
+											<div class="dataTables_paginate paging_bootstrap ">
+												<ul class="pagination ">
+												{$page}
+												</ul>
+											</div>
+										</div>
+									</div><!-- /span -->
+								</div><!-- /row -->
+
+							
+
+							
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+					</div><!-- /.page-content -->
+				</div><!-- /.main-content -->
+
+			
+			</div><!-- /.main-container-inner -->
+<include file="Public:footer" />

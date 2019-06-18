@@ -1,0 +1,1 @@
+<?php if (!defined('THINK_PATH')) exit();?>您没有权限访问该页面

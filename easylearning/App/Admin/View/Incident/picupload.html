@@ -1,0 +1,260 @@
+{:W('TopBar/topbar')}
+<script src="__PUBLIC__/upload/kindeditor.js"></script>
+		<script src="__PUBLIC__/upload/lang/zh_CN.js"></script>
+		<script>
+			KindEditor.ready(function(K) {
+				var editor = K.editor({
+					allowFileManager : true
+				});
+				K('#J_selectImage').click(function() {
+					editor.loadPlugin('multiimage', function() {
+						
+						editor.plugin.multiImageDialog({
+							clickFn : function(urlList) {
+								var div = K('#J_imageView');
+								div.html('');
+								K.each(urlList, function(i, data) {
+									div.append('<img style="width:130px;height：30px;margin-top:20px;margin-right:8px;"src="' + data.url + '">');
+								});
+								editor.hideDialog();
+							}
+						});
+					});
+				});
+			});
+			
+			
+			var img_id_upload=new Array();//初始化数组，存储已经上传的图片名
+			var i=0;//初始化数组下标
+			$(function() {
+				$('#file_upload').uploadify({
+					'auto'     : false,//关闭自动上传
+					'removeTimeout' : 1,//文件队列上传完成1秒后删除
+					'swf'      : 'uploadify.swf',
+					'uploader' : 'uploadify.php',
+					'method'   : 'post',//方法，服务端可以用$_POST数组获取数据
+					'buttonText' : '选择图片',//设置按钮文本
+					'multi'    : true,//允许同时上传多张图片
+					'uploadLimit' : 10,//一次最多只允许上传10张图片
+					'fileTypeDesc' : 'Image Files',//只允许上传图像
+					'fileTypeExts' : '*.gif; *.jpg; *.png',//限制允许上传的图片后缀
+					'fileSizeLimit' : '20000KB',//限制上传的图片不得超过200KB 
+					'onUploadSuccess' : function(file, data, response) {//每次成功上传后执行的回调函数，从服务端返回数据到前端
+						   img_id_upload[i]=data;
+						   i++;
+						   alert(data);
+					}
+					// Put your options here
+				});
+			});
+			
+			
+		</script>
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+			<div class="main-container-inner">
+				<a class="menu-toggler" id="menu-toggler" href="#">
+					<span class="menu-text"></span>
+				</a>
+
+				{:W('TopBar/leftbar')}
+
+				<div class="main-content">
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<ul class="breadcrumb">
+							<li>
+								<i class="icon-home home-icon"></i>
+								<a href="{:U('Index/index')}">首页</a>
+							</li>
+
+							<li>
+								<a href="{:U('Incident/index')}">事故信息</a>
+							</li>
+							<li class="active">上传图片</li>
+						</ul><!-- .breadcrumb --> 
+					</div>
+					<div class="page-content">
+						<!-- <div class="page-header">
+						 <form action="" method="get">
+										<div style="margin-bottom:10px;" class="col-sm-11">
+											<span class="input-icon input-icon-right">
+											<input type="text" id="platenumber" placeholder="车牌号码" name="platenumber" style="height:32px;" value="{$Think.get.platenumber}">
+											</span>
+											<span class="input-icon input-icon-right">
+											<input type="text" id="userid" placeholder="用户ID" name="userid" style="height:32px;" value="{$Think.get.userid}">
+											</span>
+											<input  class=" btn-lg btn-success btn btn-xs btn-danger" type="submit" value="搜索">
+										</div>
+										<if condition="$role eq 1">
+											<a class="label label-xlg label-primary arrowed-right pull-right " href="{:U('Incident/add')}">添加车辆</a>
+										</if>
+						 </form>
+						</div> -->
+
+
+
+
+						<div class="form-group">
+
+						</div>
+
+						<div class="row">
+							<div class="col-xs-12">
+								<!-- PAGE CONTENT BEGINS -->
+
+								<div class="row">
+									<div class="col-xs-12">
+										<div class="table-responsive">
+										
+										
+										
+										<form class="form-horizontal" action="#" enctype="multipart/form-data" method="post" >
+											<div class="form-group">
+												<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 选择案件： </label>
+
+												<div class="col-sm-9">
+												
+													<select class="form-control"  style="width:150px" name="incident" id="incident">
+														
+														<volist name="incident" id="vo" empty="暂时没有数据">
+															<option value="{$vo[id]}">{$vo[username]}|{$vo[position]}</option>
+														</volist>
+									
+													</select>
+												</div>
+												
+											</div>
+ 											<div class="form-group">
+												<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 上传图片： </label>
+
+												<div class="col-sm-9">
+													<input type='file'  name='pic'>
+												 
+
+												</div>
+											</div> 
+<!--									<div class="form-group" style="">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 图片上传： </label>
+
+										<div class="col-sm-9">
+											<input type="button" id="file_upload" value="批量上传" />
+		                                    <div id="J_imageView">
+											</div>
+
+										</div>
+									</div>-->
+											
+									
+									<div class="clearfix form-actions">
+										<div class="col-md-offset-3 col-md-9">
+											<button class="btn btn-info" id="button" type="submit">
+												<i class="icon-ok bigger-110"></i>
+												提交
+											</button>
+
+
+										</div>
+									</div>
+										 
+										</form>
+											<!-- <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+												<thead>
+													<tr>
+														<th>时间</th>
+														<th>图片</th>				
+													</tr>
+												</thead>
+
+												<tbody>
+												 <volist name="list" id="v">
+													<tr>
+														<td>
+															<?php 
+															echo date('Y-m-d H:i:s',$v['create_time']);
+															?>
+														</td>
+														<td><img src="<?php echo ($picBase.$v[path]);?>" /></td>
+														
+														<if condition="$role eq 1">
+															<td>
+																<div class="visible-md visible-lg hidden-sm hidden-xs btn-group">
+
+
+																	<a href="{:U('Incident/edit',array('id'=>$v['id']))}" class="btn btn-xs btn-info">
+																		<i class="icon-edit bigger-120"></i>
+																	</a>
+
+																	<a onclick="if(confirm('确认删除?')) location.href='{:U('Incident/del',array('id'=>$v[id]))}'"  href="javascript:;"  class="btn btn-xs btn-danger">
+																		<i class="icon-trash bigger-120"></i>
+																	</a>
+
+
+																</div>
+
+
+															</td>
+
+														</if>
+
+
+													</tr>
+												</volist>
+
+												</tbody>
+											</table>
+
+										</div>-->
+										<!-- /.table-responsive -->
+										
+										<div class="col-sm-6 pull-right">
+											<div class="dataTables_paginate paging_bootstrap ">
+												<ul class="pagination ">
+												{$page}
+												</ul>
+											</div>
+										</div>
+									</div><!-- /span -->
+								</div><!-- /row -->
+
+
+
+
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+					</div><!-- /.page-content -->
+				</div><!-- /.main-content -->
+
+
+			</div><!-- /.main-container-inner -->
+<include file="Public:footer" />
+<!-- 下面是时间的参数 -->
+<script type="text/javascript">
+			$(function(){
+
+
+
+		var logic = function( currentDateTime ){
+			if( currentDateTime.getDay()==6 ){
+				this.setOptions({
+					minTime:'11:00'
+				});
+			}else
+				this.setOptions({
+					minTime:'8:00'
+				});
+		};
+		$('#date').datetimepicker({
+			lang:'ch',
+			step:30,
+		});
+		
+
+		});
+</script>

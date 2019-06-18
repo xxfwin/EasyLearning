@@ -1,0 +1,213 @@
+{:W('TopBar/topbar')}
+<div class="main-container" id="main-container">
+    <script type="text/javascript">
+                try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+            </script>
+
+    <div class="main-container-inner">
+        <a class="menu-toggler" id="menu-toggler" href="#">
+            <span class="menu-text"></span>
+        </a>
+        {:W('TopBar/leftbar')}
+        <div class="main-content">
+            <div class="breadcrumbs" id="breadcrumbs">
+                <script type="text/javascript">try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}</script>
+
+                <ul class="breadcrumb">
+                    <li> <i class="icon-home home-icon"></i>
+                        <a href="{:U('Index/index')}">首页</a>
+                    </li>
+
+                    <li>
+                        <a href="#">维修厂信息</a>
+                    </li>
+                    <li class="active">维修厂列表</li>
+                </ul>
+                <!-- .breadcrumb --> </div>
+
+            <div class="page-content">
+                <div class="page-header">
+				<if condition="$role neq 8">
+				
+                    <form action="" method="get">
+                        <div style="margin-bottom:10px;" class="col-sm-11">
+
+                            <!-- 保留查询功能 -->
+                            <div class="col-sm-3" style="margin-left:-24px;">
+
+                                <select   class="form-control"  style="width:120px" name="star" id="star">
+                                    <option value="0">请选择星级</option>
+                                    <volist name="info" id="v">
+                                        <option value="{$v.star}"<if condition="$Think.get.star eq $v['star']">selected=selected</if>
+                                        >{$v.star}
+                                    </option>
+                                    <!--<volist name="v.child" id="vo">
+                                    <option value="{$vo.id}" <if condition="$Think.get.pid eq $vo['id']">selected=selected</if>
+                                    >&nbsp;└-{$vo.cate}
+                                </option>
+
+                                <volist name="vo.child" id="val">
+                                    <option value="{$val.id}" <if condition="$Think.get.pid eq $val['id']">selected=selected</if>
+                                    >&nbsp;&nbsp;└-{$val.cate}
+                                </option>
+                            </volist>
+                        </volist>
+                        -->
+                    </volist>
+                </select>
+
+            </div>
+
+            <!-- <span class="input-icon input-icon-right" style="margin-left:-107px;">
+            <input  type="text" id="starTime" placeholder="开始时间" name="starTime" style="height:32px;" value="{$Think.get.starTime}"></span>
+        -->
+        <span class="input-icon input-icon-right " style="margin-left:-120px;">
+            <input  type="text" id="name" placeholder="姓名" name="name" style="height:32px;width:120px;" value="{$Think.get.name}"></span>
+        <input  class=" btn-lg btn-success btn btn-xs btn-danger" type="submit" value="搜索"></div>
+    
+    <if condition="$role eq 1">
+
+    <a class="label label-xlg label-primary arrowed-right pull-right " href="{:U('Factory/add')}">添加维修厂</a>
+    </if>
+</form>
+				</if>
+
+</div>
+<div class="form-group"></div>
+
+<div class="row">
+<div class="col-xs-12">
+    <!-- PAGE CONTENT BEGINS -->
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="table-responsive">
+                <table id="sample-table-1" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+							<if condition="$role eq 1">
+								<th>操作</th>
+                            </if>
+							<if condition="$role eq 8">
+                                <th>操作</th>
+							</if>
+                            <th>ID</th>
+                            <th>地址</th>
+                            <th>星级</th>
+                            <th>名字</th>
+                            <th>锁定</th>
+                            <th>优先级</th>
+							<if condition="$role eq 1">
+								<th>对应账户</th>
+							</if>
+                            
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <volist name="list" id="v">
+                            <tr>
+							
+															<if condition="$role eq 1">
+									<td>
+                                        <div class="btn-group">
+
+                                            <a href="{:U('Factory/edit',array('id'=>
+                                                $v['id']))}" class="btn btn-xs btn-info"> <i class="icon-edit bigger-120"></i>
+                                            </a>
+
+                                            <a onclick="if(confirm('确认删除?'))
+        location.href='{:U('Factory/del',array('id'=>
+                                                $v[id]))}'"  href="javascript:;" class="btn btn-xs btn-danger">
+                                                <i class="icon-trash bigger-120"></i>
+                                            </a>
+
+                                        </div>
+
+                                    </td>
+
+                                </if>
+                                <if condition="$role eq 8">
+								<td>
+                                    <a href="{:U('Factory/edit',array('id'=>
+                                        $v['id']))}" class="btn btn-xs btn-info">
+                                        <i class="icon-edit bigger-120"></i>
+                                    </a>
+									</td>
+                                </if>
+								
+                                <td>{$v.id}</td>
+                                <td>{$v.address}</td>
+                                <td>{$v.star}</td>
+                                <td>{$v.name}</td>
+                               <if condition="$v[lock] eq 1">
+									<td>已锁定</td>
+									
+									<elseif condition="$v[lock] eq 0" />
+									<td>未锁定</td>
+									<else />
+									
+								</if>
+									<td>{$v.priority}</td>
+                                <if condition="$role eq 1">
+									<td>
+										{$v.accountid}
+									</td>
+								</if>	
+
+                            </tr>
+                        </volist>
+
+                    </tbody>
+                </table>
+
+            </div>
+            <!-- /.table-responsive -->
+            <div class="col-sm-6 pull-right">
+                <div class="dataTables_paginate paging_bootstrap ">
+                    <ul class="pagination ">{$page}</ul>
+                </div>
+            </div>
+        </div>
+        <!-- /span --> </div>
+    <!-- /row -->
+
+</div>
+<!-- /.col -->
+</div>
+<!-- /.row -->
+</div>
+<!-- /.page-content -->
+</div>
+<!-- /.main-content -->
+
+</div>
+<!-- /.main-container-inner -->
+<include file="Public:footer" />
+<!-- 下面是时间的参数 -->
+<script type="text/javascript">
+            $(function(){
+                
+             
+            
+        var logic = function( currentDateTime ){
+            if( currentDateTime.getDay()==6 ){
+                this.setOptions({
+                    minTime:'11:00'
+                });
+            }else
+                this.setOptions({
+                    minTime:'8:00'
+                });
+        };
+        $('#starTime').datetimepicker({
+            lang:'ch',
+            step:30,
+        });
+        $('#endTime').datetimepicker({
+            lang:'ch',
+            step:30,
+        });
+        
+        });
+</script>

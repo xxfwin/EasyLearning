@@ -1,0 +1,211 @@
+{:W('TopBar/topbar')}
+
+		
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+			<div class="main-container-inner">
+				<a class="menu-toggler" id="menu-toggler" href="#">
+					<span class="menu-text"></span>
+				</a>
+
+				{:W('TopBar/leftbar')}
+
+				<div class="main-content">
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<ul class="breadcrumb">
+							<li>
+								<i class="icon-home home-icon"></i>
+								<a href="#">首页</a>
+							</li>
+
+							<li>
+								<a href="{:U('Article/index')}">文章管理</a>
+							</li>
+							<li class="active">修改文章</li>
+						</ul><!-- .breadcrumb -->
+
+					
+					</div>
+
+					<div class="page-content">
+						<div class="page-header">
+						 <a class="label label-xlg label-primary arrowed " href="{:U('Article/index')}">
+							返回列表</a>
+							
+						</div><!-- /.page-header -->
+
+						<div class="row">
+							<div class="col-xs-12">
+								<!-- PAGE CONTENT BEGINS -->
+
+								<form class="form-horizontal" action="" method="post" id="myform">
+								<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 分类： </label>
+									
+										<div class="col-sm-3">
+											
+											<select   class="form-control"  name="cate_id" id="cate">
+												<option value="0">请选择分类</option>
+												 <volist name="list" id="v">
+												 <option value="{$v.id}" <if condition="$info.cate_id eq $v['id']">selected=selected</if>>{$v.cate}</option>
+													 <volist name="v.child" id="vo">
+													<option value="{$vo.id}" <if condition="$info.cate_id eq $vo['id']">selected=selected</if>>&nbsp;└-{$vo.cate}</option>
+												  
+												    <volist name="vo.child" id="val">
+													<option value="{$val.id}" <if condition="$info.cate_id eq $val['id']">selected=selected</if>>&nbsp;&nbsp;└-{$val.cate}</option>
+												   </volist>
+												    </volist>
+												</volist>
+											</select>
+											 
+										</div>
+
+										
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 文章名称： </label>
+
+										<div class="col-sm-9">
+											<input type="text" id="title" placeholder="文章名称" class="col-sm-4" name="title"  value="{$info.title}" />
+											
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 文章描述： </label>
+
+										<div class=" col-xs-12 col-sm-4">
+											<textarea class="form-control" rows="4" name="desc" id="descs" placeholder="描述">{$info.desc}</textarea>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 排序： </label>
+
+										<div class="col-sm-9">
+											<input type="text" id="form-field-2" placeholder="排序" class="input-large"  name="sort" value="{$info.sort}" />
+											
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 是否推荐： </label>
+
+										<div class="col-sm-9">
+										<label>
+											<input name="recommend" <if condition="$info.recommend eq '推荐'">checked=cheked</if>type="radio" class="ace" value="推荐" />
+											<span class="lbl">&nbsp;推荐</span>
+										</label>
+										<label>	
+											<input name="recommend" type="radio" class="ace" value="未推荐" <if condition="$info.recommend eq '未推荐'">checked=cheked</if> />
+											<span class="lbl">&nbsp;未推荐</span>
+										</label>	
+									
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 是否置顶： </label>
+
+										<div class="col-sm-9">
+										<label>
+											<input name="top" type="radio" <if condition="$info.top eq '置顶'">checked=cheked</if> class="ace" value="置顶" />
+											<span class="lbl">&nbsp;置顶</span>
+										</label>
+										<label>	
+											<input name="top" type="radio" <if condition="$info.top eq '未置顶'">checked=cheked</if> class="ace" value="未置顶" />
+											<span class="lbl">&nbsp;未置顶</span>
+										</label>	
+									
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 是否审核： </label>
+
+										<div class="col-sm-9">
+										<label>
+											<input name="audit" type="radio" <if condition="$info.audit eq '审核不通过'">checked=cheked</if> class="ace" value="审核不通过" />
+											<span class="lbl">&nbsp;审核不通过</span>
+										</label>
+										<label>	
+											<input name="audit" type="radio"   <if condition="$info.audit eq '审核通过'">checked=cheked</if> class="ace" value="审核通过" />
+											<span class="lbl">&nbsp;审核通过</span>
+										</label>
+										<label>	
+											<input name="audit" type="radio" <if condition="$info.audit eq '待审核'">checked=cheked</if> class="ace" value="待审核" />
+											<span class="lbl">&nbsp;待审核</span>
+										</label>	
+										
+										</div>
+									</div>
+
+									
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 文章内容： </label>
+
+										<div class="col-sm-7 col-xs-4">
+			<textarea id="desc" name="content" style="width:700px;height:300px;">{$info.content}
+</textarea>
+											
+										</div>
+									</div>
+									
+
+									<div class="space-4"></div>
+
+									<div class="clearfix form-actions">
+										<div class="col-md-offset-3 col-md-9">
+										<input type="hidden" name="id" value="{$info.id}">
+											<button class="btn btn-info" id="button" type="button">
+												<i class="icon-ok bigger-110"></i>
+												提交
+											</button>
+
+											
+										</div>
+									</div>
+								</form>
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+					</div><!-- /.page-content -->
+				</div><!-- /.main-content -->
+
+				
+			</div><!-- /.main-container-inner -->
+
+
+	<include file="Public:footer" />
+<script type="text/javascript">
+	$(function(){
+		$("#button").click(function(){
+			var name=$("#cate").val();
+			KindEditor.ready(function(K) {
+				editor = K.create('textarea[name="content"]')
+				});
+			html = editor.html();
+			editor.sync('desc');
+			editor.html('desc', html);
+			var title=$("#title").val();
+			var descs=$("#descs").val();
+			
+			if(name==0){
+				layer.alert('分类必须选择', {icon: 5});
+				return false;
+			}else if(title==''){
+				layer.alert('文章标题必须填写', {icon: 5});
+				return false;
+			}else if(descs==''){
+				layer.alert('描述必须填写', {icon: 5});
+				return false;
+			}else if(html==''){
+				layer.alert('文章内容必须填写', {icon: 5});
+				return false;
+			}else{
+				$("#myform").submit();
+			}
+		});
+	});
+</script>

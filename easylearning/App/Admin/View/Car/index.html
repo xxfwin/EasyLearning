@@ -1,0 +1,162 @@
+{:W('TopBar/topbar')}
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+			<div class="main-container-inner">
+				<a class="menu-toggler" id="menu-toggler" href="#">
+					<span class="menu-text"></span>
+				</a>
+
+				{:W('TopBar/leftbar')}
+
+				<div class="main-content">
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<ul class="breadcrumb">
+							<li>
+								<i class="icon-home home-icon"></i>
+								<a href="{:U('Index/index')}">首页</a>
+							</li>
+
+							<li>
+								<a href="#">车辆信息</a>
+							</li>
+							<li class="active">车辆列表</li>
+						</ul><!-- .breadcrumb -->
+					</div>
+					<div class="page-content">
+						<div class="page-header">
+						 <form action="" method="get">
+										<div style="margin-bottom:10px;" class="col-sm-11">
+											<span class="input-icon input-icon-right">
+											<input type="text" id="platenumber" placeholder="车牌号码" name="platenumber" style="height:32px;width:120px;" value="{$Think.get.platenumber}">
+											</span>
+											<span class="input-icon input-icon-right">
+											<input type="text" id="userid" placeholder="用户ID" name="userid" style="height:32px;width:120px;" value="{$Think.get.userid}">
+											</span>
+											<input  class=" btn-lg btn-success btn btn-xs btn-danger" type="submit" value="搜索">
+										</div>
+										<if condition="($role eq 1) OR ($role eq 2)">
+											<a class="label label-xlg label-primary arrowed-right pull-right " href="{:U('Car/add')}">添加车辆</a>
+										</if>
+						 </form>
+						</div>
+
+
+
+
+						<div class="form-group">
+
+						</div>
+
+						<div class="row">
+							<div class="col-xs-12">
+								<!-- PAGE CONTENT BEGINS -->
+
+								<div class="row">
+									<div class="col-xs-12">
+										<div class="table-responsive">
+											<table id="sample-table-1" class="table table-bordered table-hover">
+												<thead>
+													<tr>
+														<th>操作</th>
+														<th>ID</th>
+														<th>车牌号码</th>
+														<if condition="$role eq 1">
+															<th>用户姓名</th>
+														</if>
+													</tr>
+												</thead>
+
+												<tbody>
+												 <volist name="list" id="v">
+													<tr>
+														<if condition="$role eq 1">
+															<td>
+																<div class="btn-group">
+
+
+																	<a href="{:U('Car/edit',array('id'=>$v['id']))}" class="btn btn-xs btn-info">
+																		<i class="icon-edit bigger-120"></i>
+																	</a>
+
+																	<a onclick="if(confirm('确认删除?')) location.href='{:U('Car/del',array('id'=>$v[id]))}'"  href="javascript:;"  class="btn btn-xs btn-danger">
+																		<i class="icon-trash bigger-120"></i>
+																	</a>
+
+
+																</div>
+
+
+															</td>
+
+														</if>
+													
+														<td>
+															{$v.id}
+														</td>
+														<td>{$v.platenumber}</td>
+														<td>{$v.username}</td>
+
+
+
+													</tr>
+												</volist>
+
+												</tbody>
+											</table>
+
+										</div><!-- /.table-responsive -->
+										<div class="col-sm-6 pull-right">
+											<div class="dataTables_paginate paging_bootstrap ">
+												<ul class="pagination ">
+												{$page}
+												</ul>
+											</div>
+										</div>
+									</div><!-- /span -->
+								</div><!-- /row -->
+
+
+
+
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+					</div><!-- /.page-content -->
+				</div><!-- /.main-content -->
+
+
+			</div><!-- /.main-container-inner -->
+<include file="Public:footer" />
+<!-- 下面是时间的参数 -->
+<script type="text/javascript">
+			$(function(){
+
+
+
+		var logic = function( currentDateTime ){
+			if( currentDateTime.getDay()==6 ){
+				this.setOptions({
+					minTime:'11:00'
+				});
+			}else
+				this.setOptions({
+					minTime:'8:00'
+				});
+		};
+		$('#starTime').datetimepicker({
+			lang:'ch',
+			step:30,
+		});
+		$('#endTime').datetimepicker({
+			lang:'ch',
+			step:30,
+		});
+
+		});
+</script>

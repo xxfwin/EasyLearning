@@ -1,0 +1,142 @@
+{:W('TopBar/topbar')}
+<div class="main-container" id="main-container">
+	<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+	<div class="main-container-inner">
+		<a class="menu-toggler" id="menu-toggler" href="#">
+			<span class="menu-text"></span>
+		</a>
+		{:W('TopBar/leftbar')}
+		<div class="main-content">
+			<div class="breadcrumbs" id="breadcrumbs">
+				<script type="text/javascript">try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}</script>
+
+				<ul class="breadcrumb">
+					<li> <i class="icon-home home-icon"></i>
+						<a href="{:U('Index/index')}">首页</a>
+					</li>
+
+					<li>
+						<a href="#">权限管理</a>
+					</li>
+					<li class="active">管理员列表</li>
+				</ul>
+				<!-- .breadcrumb -->
+
+			</div>
+
+			<div class="page-content">
+				<div class="page-header">
+
+					<a class="label label-xlg label-primary arrowed-right " href="{:U('Admin/add')}">添加管理员</a>
+
+				</div>
+
+				<div class="row">
+					<div class="col-xs-12">
+						<!-- PAGE CONTENT BEGINS -->
+
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="table-responsive">
+									<table id="sample-table-1" class="table table-bordered table-hover">
+										<thead>
+											<tr>
+												<th>操作</th>
+												<th>ID</th>
+												<th>账号</th>
+												<th>昵称</th>
+												<th>手机</th>
+												<th>工号</th>
+												<th>登录时间</th>
+												<th>登录ip</th>
+												<th>状态</th>
+												<th>权限组</th>
+												
+											</tr>
+										</thead>
+
+										<tbody>
+											<volist name="data.list" id="v">
+												<tr>
+												<td>
+													<div class="btn-group">
+
+														<a href="{:U('Admin/edit',array('id'=>
+															$v['id']))}" class="btn btn-xs btn-info"> <i class="icon-edit bigger-120"></i>
+														</a>
+														
+														
+														<a href="{:U('Admin/bindweixin',array('id'=>
+															$v['id']))}" class="btn btn-xs btn-info"> <i class="icon-info-sign bigger-120"></i>
+														</a>
+														
+														<if condition="$v.id neq 1">	
+														<a onclick="if(confirm('确认删除?')) location.href='{:U('Admin/del',array('id'=>
+																$v[id]))}'"  href="javascript:;" class="btn btn-xs btn-danger">
+																<i class="icon-trash bigger-120"></i>
+														</a>
+
+													
+														</if>
+														</div>
+
+													</td>
+													<td>{$v.id}</td>
+													<td>{$v.username}</td>
+													<td>{$v.nickname}</td>
+													<td>{$v.phone}</td>
+													<td>{$v.worknumber}</td>
+													<td>
+														<if condition="$v.logintime eq ''">
+
+															<else />
+															{$v.logintime|date='Y-m-d H:i:s',###}
+														</if>
+													</td>
+													<td>{$v.loginip}</td>
+													<td>
+														<if condition="$v.lock eq '开启'">
+															<span class="label label-success arrowed">{$v.lock}</span>
+															<else />
+															<span class="label  label-warning arrowed ">{$v.lock}</span>
+														</if>
+													</td>
+
+													<td>
+													<span class="badge badge-purple">{$v.name}</span>
+
+													</td>
+													
+												</tr>
+											</volist>
+
+										</tbody>
+									</table>
+
+								</div>
+								<!-- /.table-responsive -->
+								<div class="col-sm-6 pull-right">
+									<div class="dataTables_paginate paging_bootstrap ">
+										<ul class="pagination ">{$data.page}</ul>
+									</div>
+								</div>
+							</div>
+							<!-- /span -->
+						</div>
+						<!-- /row -->
+
+					</div>
+					<!-- /.col -->
+				</div>
+				<!-- /.row -->
+			</div>
+			<!-- /.page-content -->
+		</div>
+		<!-- /.main-content -->
+
+	</div>
+	<!-- /.main-container-inner -->
+	<include file="Public:footer" />

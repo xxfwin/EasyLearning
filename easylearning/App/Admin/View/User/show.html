@@ -1,0 +1,56 @@
+{:W('TopBar/topbar')}
+<style type="text/css">
+	
+	.wminimize:hover{
+		text-decoration:none;
+	}
+	.table thead>tr>th, .table tbody>tr>th, .table tfoot>tr>th, .table thead>tr>td, .table tbody>tr>td, .table tfoot>tr>td {
+			padding: 8px;
+			line-height: 1.428571429;
+			vertical-align: top;
+			 border-top: 0px solid #ddd; 
+}
+</style>
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+			<div class="main-container-inner">
+				<a class="menu-toggler" id="menu-toggler" href="#">
+					<span class="menu-text"></span>
+				</a>
+
+				{:W('TopBar/leftbar')}
+
+				<div class="main-content">
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<ul class="breadcrumb">
+							<li>
+								<i class="icon-home home-icon"></i>
+								<a href="{:U('Index/index')}">首页</a>
+							</li>
+							<li class="active"><a href="{:U('User/index')}">笔记列表</a></li>
+							<li class="active">{$list['fullname']}</li>
+							<li class="active">{$list['name']}</li>
+						</ul><!-- .breadcrumb -->
+
+					</div>
+
+					<div class="page-content">
+						<div class="page-header">
+							<p>{$list['text']}</p>
+						</div>
+					</div><!-- /.page-content -->
+					<a href="{:U('User/edit',array('id'=>$list['id']))}" class="wminimize">修改</a>
+				</div><!-- /.main-content -->
+
+			
+			</div><!-- /.main-container-inner -->
+
+			
+<include file="Public:footer" />

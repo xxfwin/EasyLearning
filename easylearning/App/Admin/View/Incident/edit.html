@@ -1,0 +1,431 @@
+{:W('TopBar/topbar')}
+
+
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+			<div class="main-container-inner">
+				<a class="menu-toggler" id="menu-toggler" href="#">
+					<span class="menu-text"></span>
+				</a>
+
+				{:W('TopBar/leftbar')}
+
+				<div class="main-content">
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+					<ul class="breadcrumb">
+							<li>
+								<i class="icon-home home-icon"></i>
+								<a href="#">首页</a>
+							</li>
+
+							<li>
+								<a href="{:U('Incident/index')}">事故信息</a>
+							</li>
+							<li class="active">修改事故信息</li>
+						</ul><!-- .breadcrumb -->
+					</div>
+
+					<div class="page-content">
+						<div class="page-header">
+						 <a class="label label-xlg label-primary arrowed " href="{:U('Incident/index')}">
+							返回列表</a>
+
+						</div><!-- /.page-header -->
+
+						<div class="row">
+							<div class="col-xs-12">
+								<!-- PAGE CONTENT BEGINS -->
+
+								<form class="form-horizontal" action="" method="post" id="myform">
+									<!-- 选择分类 -->
+								<!--  <div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 分类： </label>
+
+										<div class="col-sm-3">
+
+											<select   class="form-control"  name="cate_id" id="cate">
+												<option value="0">请选择分类</option>
+												 <volist name="list" id="v">
+												 <option value="{$v.id}" <if condition="$info.cate_id eq $v['id']">selected=selected</if>>{$v.cate}</option>
+													 <volist name="v.child" id="vo">
+													<option value="{$vo.id}" <if condition="$info.cate_id eq $vo['id']">selected=selected</if>>&nbsp;└-{$vo.cate}</option>
+
+												    <volist name="vo.child" id="val">
+													<option value="{$val.id}" <if condition="$info.cate_id eq $val['id']">selected=selected</if>>&nbsp;&nbsp;└-{$val.cate}</option>
+												   </volist>
+												    </volist>
+												</volist>
+											</select>
+
+										</div>
+
+
+									</div> -->
+
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 用户ID： </label>
+
+										<div class="col-sm-9">
+											<input type="text" id="userid" placeholder="用户ID" class="col-sm-4" name="userid"  value="{$info.userid}" />
+
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 电话： </label>
+
+										<div class="col-sm-9">
+											<input type="text" id="phone" placeholder="用户电话" class="col-sm-4" name="phone"  value="{$info.phone}" />
+
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 故障部位： </label>
+
+										<div class="col-sm-9">
+											<input type="text" id="carposition" placeholder="故障部位" class="col-sm-4" name="carposition"  value="{$info.carposition}" />
+
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 案件号： </label>
+
+										<div class="col-sm-9">
+											<input type="text" id="position" placeholder="案件号" class="col-sm-4" name="position"  value="{$info.position}" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 事故类型： </label>
+										
+										
+										<div class="col-sm-9">
+
+											<select class="form-control"   style="width:150px" name="faultyid" id="faultyid">
+												<volist name="faultyinfo" id="v">
+													<option value="{$v.id}" <if condition="$info[faultyid] eq $v[id]"> selected=selected</if>>
+													<?php echo($v[type].$v[condition]) ?>
+													</option>
+												</volist>
+											
+											
+											</select>
+
+										</div>
+										<!-- <div class="col-sm-9">
+											<input type="text" id="faultyid" placeholder="事故类型ID" class="col-sm-4" name="faultyid"  value="{$info.faultyid}" />
+
+										</div> -->
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 出险时间： </label>
+
+										<div class="col-sm-9">
+											<input type="text" id="date" placeholder="发生时间" class="col-sm-4"  name="date" value="{$info.date}" />
+
+										</div>
+									</div>
+									 
+									 <div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 状态： </label>
+									<div class="col-sm-9">
+									<select class="form-control"  style="width:150px" name="status" id="status">				
+
+									<if condition="$info.status eq 1">
+									<option value="1">已处理</option>
+									<option value="2">已到达维修厂</option>
+									<option value="3">已完成维修</option>
+									<option value="4">待审核</option>
+									<option value="5">未通过</option>
+									</if>
+									<if condition="$info.status eq 2">
+									<option value="2">已到达维修厂</option>
+									<option value="1">已处理</option>
+									<option value="3">已完成维修</option>
+									<option value="4">待审核</option>
+									<option value="5">未通过</option>
+									</if>
+									<if condition="$info.status eq 3">
+									<option value="3">已完成维修</option>
+									<option value="1">已处理</option>
+									<option value="2">已到达维修厂</option>
+									<option value="4">待审核</option>
+									<option value="5">未通过</option>
+									</if>
+									<if condition="$info.status eq 4">
+									<option value="4">待审核</option>
+									<option value="1">已处理</option>
+									<option value="2">已到达维修厂</option>
+									<option value="3">已完成维修</option>
+									<option value="5">未通过</option>
+									</if>
+									<if condition="$info.status eq 5">
+									<option value="5">未通过</option>
+									<option value="1">已处理</option>
+									<option value="2">已到达维修厂</option>
+									<option value="3">已完成维修</option>
+									<option value="4">待审核</option>
+									</if>
+									
+									
+									</select>
+									
+									</div>
+
+									</div>
+									<!-- <div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 状态： </label>
+
+										<div class="col-sm-9">
+											<input type="text" id="status" placeholder="状态" class="col-sm-4"  name="status" value="{$info.status}" />
+
+										</div>
+									</div> -->
+									
+									
+									<if condition="($role eq 1) ">
+									<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 定损员： </label>
+									<div class="col-sm-9">
+									<select class="form-control"  style="width:150px" name="auditor_id" id="auditor_id">
+										<option value=""></option>
+										<volist name="auditorlist" id="vo" empty="暂时没有数据">
+										<option value="{$vo[id]}" <if condition="$vo[id] eq $info[auditor_id]"> selected="selected"</if>>{$vo[nickname]}</option>
+										</volist>
+									
+									</select>
+									
+									</div>
+
+									</div>
+									</if>
+									
+									
+									<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 维修厂： </label>
+									<div class="col-sm-9">
+									<select class="form-control"  style="width:150px" name="factoryid" id="factoryid">
+										<option value=""></option>
+										<volist name="factorylist" id="vo" empty="暂时没有数据">
+										<option value="{$vo[id]}"<if condition="$vo[id] eq $info[factoryid]"> selected="selected"</if>>{$vo[name]}</option>
+										</volist>
+									
+									</select>
+									
+									</div>
+
+									</div>
+									<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 候选维修厂： </label>
+									<div class="col-sm-9">
+											
+										<volist name="candidatefactorylist" id="vo" empty="暂时没有数据">
+										<input type="checkbox" name="candidatefactoryid[]" value="{$vo['id']}" <if condition="$vo['check'] eq 1"> checked = "checked"</if> >{$vo['name']}</input>
+										</if>
+										
+										</volist>
+										
+										
+									
+									</div>
+
+									</div>
+									
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 车ID： </label>
+
+										<div class="col-sm-9">
+											<input type="text" id="carid" placeholder="车ID" class="col-sm-4"  name="carid" value="{$info.carid}" />
+
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 是否三者车： </label>
+
+										<div class="col-sm-9">
+											<select class="form-control"  style="width:150px" name="is_thirdparty" id="is_thirdparty">				
+												<option value="1" <if condition="1 eq $info[is_thirdparty]"> selected="selected"</if>>是</option>
+												<option value="0" <if condition="0 eq $info[is_thirdparty]"> selected="selected"</if>>否</option>
+									</select>
+
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 三者车ID： </label>
+
+										<div class="col-sm-9">
+											<input type="text" id="thirdparty_id" placeholder="三者车ID" class="col-sm-4"  name="thirdparty_id" value="{$info.thirdparty_id}" />
+
+										</div>
+									</div>
+									<!-- <div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 是否推荐： </label>
+
+										<div class="col-sm-9">
+										<label>
+											<input name="recommend" type="radio" class="ace" value="推荐" />
+											<span class="lbl">&nbsp;推荐</span>
+										</label>
+										<label>
+											<input name="recommend" type="radio" class="ace" value="未推荐" />
+											<span class="lbl">&nbsp;未推荐</span>
+										</label>
+
+										</div>
+									</div> -->
+									<!-- <div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 是否置顶： </label>
+
+										<div class="col-sm-9">
+										<label>
+											<input name="top" type="radio" class="ace" value="置顶" />
+											<span class="lbl">&nbsp;置顶</span>
+										</label>
+										<label>
+											<input name="top" type="radio" class="ace" value="未置顶" />
+											<span class="lbl">&nbsp;未置顶</span>
+										</label>
+
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 是否审核： </label>
+
+										<div class="col-sm-9">
+										<label>
+											<input name="audit" type="radio"  class="ace" value="审核不通过" />
+											<span class="lbl">&nbsp;审核不通过</span>
+										</label>
+										<label>
+											<input name="audit" type="radio"    class="ace" value="审核通过" />
+											<span class="lbl">&nbsp;审核通过</span>
+										</label>
+										<label>
+											<input name="audit" type="radio"  class="ace" value="待审核" />
+											<span class="lbl">&nbsp;待审核</span>
+										</label>
+
+										</div>
+									</div> -->
+								   <!-- <div class="form-group" style="display: none;">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 图片上传： </label>
+
+										<div class="col-sm-9">
+											<input type="button" id="J_selectImage" value="批量上传" />
+		                                    <div id="J_imageView"></div>
+
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 投保人内容： </label>
+
+										<div class="col-sm-7 col-xs-4">
+			 <textarea id="desc" name="content" style="width:700px;height:300px;">{$info.content}
+</textarea>
+
+										</div>
+									</div>
+
+
+
+								<div class="form-group"> -->
+
+
+
+
+
+									<div class="clearfix form-actions">
+										<div class="col-md-offset-3 col-md-9">
+											<input type="hidden" name="id" value="{$info.id}">
+											<button class="btn btn-info" id="button" type="submit">
+												<i class="icon-ok bigger-110"></i>
+												提交
+											</button>
+
+
+										</div>
+									</div>
+								</form>
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+					</div><!-- /.page-content -->
+				</div><!-- /.main-content -->
+
+
+			</div><!-- /.main-container-inner -->
+
+
+	<include file="Public:footer" />
+<script type="text/javascript">
+	$(function(){
+		$("#button").click(function(){
+
+						var userid=$("#userid").val();
+						var faultyid=$("#faultyid").val();
+						var count=$("#count").val();
+						var date=$("#date").val();
+						var status=$("#status").val();
+						var factoryid=$("#factoryid").val();
+						var carid=$("#carid").val();
+						var is_thirdparty=$("#is_thirdparty").val();
+
+						if(userid==''){
+							layer.alert('用户ID必须填写', {icon: 5});
+							return false;
+						}else if(faultyid==''){
+							layer.alert('故障号必须填写', {icon: 5});
+							return false;
+						}else if(date==''){
+							layer.alert('日期必须填写', {icon: 5});
+							return false;
+						}else if(status==''){
+							layer.alert('状态必须填写', {icon: 5});
+							return false;
+						}else if (carid=='') {
+							layer.alert('车辆ID必须填写', {icon: 5});
+							return false;
+						}else if (is_thirdparty=='') {
+							layer.alert('是否三者车必须填写', {icon: 5});
+							return false;
+						}else {
+							$("#myform").submit();
+						}
+		});
+	});
+</script>
+
+<!-- 下面是时间的参数 -->
+<script type="text/javascript">
+			$(function(){
+
+
+
+		var logic = function( currentDateTime ){
+			if( currentDateTime.getDay()==6 ){
+				this.setOptions({
+					minTime:'11:00'
+				});
+			}else
+				this.setOptions({
+					minTime:'8:00'
+				});
+		};
+		$('#date').datetimepicker({
+			lang:'ch',
+			step:30,
+		});
+		$('#enddate').datetimepicker({
+			lang:'ch',
+			step:30,
+		});
+
+		});
+</script>

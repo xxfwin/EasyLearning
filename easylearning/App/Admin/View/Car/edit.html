@@ -1,0 +1,140 @@
+{:W('TopBar/topbar')}
+
+
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+			<div class="main-container-inner">
+				<a class="menu-toggler" id="menu-toggler" href="#">
+					<span class="menu-text"></span>
+				</a>
+
+				{:W('TopBar/leftbar')}
+
+				<div class="main-content">
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+					<ul class="breadcrumb">
+							<li>
+								<i class="icon-home home-icon"></i>
+								<a href="#">首页</a>
+							</li>
+
+							<li>
+								<a href="{:U('Car/index')}">车辆信息</a>
+							</li>
+							<li class="active">修改车辆信息</li>
+						</ul><!-- .breadcrumb -->
+
+
+					</div>
+
+					<div class="page-content">
+						<div class="page-header">
+						 <a class="label label-xlg label-primary arrowed " href="{:U('Car/index')}">
+							返回列表</a>
+
+						</div><!-- /.page-header -->
+
+						<div class="row">
+							<div class="col-xs-12">
+								<!-- PAGE CONTENT BEGINS -->
+
+								<form class="form-horizontal" action="" method="post" id="myform">
+									<!-- 选择分类 -->
+								<!--  <div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 分类： </label>
+
+										<div class="col-sm-3">
+
+											<select   class="form-control"  name="cate_id" id="cate">
+												<option value="0">请选择分类</option>
+												 <volist name="list" id="v">
+												 <option value="{$v.id}" <if condition="$info.cate_id eq $v['id']">selected=selected</if>>{$v.cate}</option>
+													 <volist name="v.child" id="vo">
+													<option value="{$vo.id}" <if condition="$info.cate_id eq $vo['id']">selected=selected</if>>&nbsp;└-{$vo.cate}</option>
+
+												    <volist name="vo.child" id="val">
+													<option value="{$val.id}" <if condition="$info.cate_id eq $val['id']">selected=selected</if>>&nbsp;&nbsp;└-{$val.cate}</option>
+												   </volist>
+												    </volist>
+												</volist>
+											</select>
+
+										</div>
+
+
+									</div> -->
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 车牌号： </label>
+
+										<div class="col-sm-9">
+											<input type="text" id="platenumber" placeholder="车牌号" class="col-sm-4" name="platenumber"  value="{$info.platenumber}" />
+
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 用户ID： </label>
+
+										<div class="col-sm-9">
+											<input type="text" id="userid" placeholder="用户ID" class="col-sm-4"  name="userid" value="{$info.userid}" />
+
+										</div>
+									</div>
+									<div class="clearfix form-actions">
+										<div class="col-md-offset-3 col-md-9">
+											<input type="hidden" name="id" value="{$info.id}">
+											<button class="btn btn-info" id="button" type="submit">
+												<i class="icon-ok bigger-110"></i>
+												提交
+											</button>
+										</div>
+									</div>
+								</form>
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+					</div><!-- /.page-content -->
+				</div><!-- /.main-content -->
+
+
+			</div><!-- /.main-container-inner -->
+
+
+	<include file="Public:footer" />
+<script type="text/javascript">
+	$(function(){
+		$("#button").click(function(){
+			var name=$("#cate").val();
+			KindEditor.ready(function(K) {
+				editor = K.create('textarea[name="content"]')
+				});
+			html = editor.html();
+			editor.sync('desc');
+			editor.html('desc', html);
+			var title=$("#title").val();
+			var descs=$("#descs").val();
+
+			if(name==0){
+				layer.alert('分类必须选择', {icon: 5});
+				return false;
+			}else if(title==''){
+				layer.alert('文章标题必须填写', {icon: 5});
+				return false;
+			}else if(descs==''){
+				layer.alert('描述必须填写', {icon: 5});
+				return false;
+			}else if(html==''){
+				layer.alert('文章内容必须填写', {icon: 5});
+				return false;
+			}else{
+				$("#myform").submit();
+			}
+		});
+	});
+</script>

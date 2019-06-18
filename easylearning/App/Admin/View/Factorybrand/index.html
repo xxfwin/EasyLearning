@@ -1,0 +1,190 @@
+{:W('TopBar/topbar')}
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+			<div class="main-container-inner">
+				<a class="menu-toggler" id="menu-toggler" href="#">
+					<span class="menu-text"></span>
+				</a>
+
+				{:W('TopBar/leftbar')}
+
+				<div class="main-content">
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<ul class="breadcrumb">
+							<li>
+								<i class="icon-home home-icon"></i>
+								<a href="{:U('Index/index')}">首页</a>
+							</li>
+
+							<li>
+								<a href="#">维修厂品牌</a>
+							</li>
+							<li class="active">维修厂品牌列表</li>
+						</ul><!-- .breadcrumb -->
+
+						
+					</div>
+
+					<div class="page-content">
+						<div class="page-header">
+						 <form action="" method="get">
+										<div style="margin-bottom:10px;" class="col-sm-11">
+										
+										<!-- 保留查询功能 -->
+										<!-- <div class="col-sm-3" style="margin-left:-24px;">
+											
+											<select   class="form-control"  style="width:110px" name="pid" id="pid">
+												<option value="0">请选择分类</option>
+												 <volist name="info" id="v">
+												 <option value="{$v.id}"<if condition="$Think.get.pid eq $v['id']">selected=selected</if>>{$v.cate}</option>
+													 <volist name="v.child" id="vo">
+													<option value="{$vo.id}" <if condition="$Think.get.pid eq $vo['id']">selected=selected</if>>&nbsp;└-{$vo.cate}</option>
+												  
+												    <volist name="vo.child" id="val">
+													<option value="{$val.id}" <if condition="$Think.get.pid eq $val['id']">selected=selected</if>>&nbsp;&nbsp;└-{$val.cate}</option>
+												   </volist>
+												    </volist>
+												</volist>
+											</select>
+											 
+										</div> -->
+
+										<!-- <span class="input-icon input-icon-right" style="margin-left:-107px;">
+											<input  type="text" id="starTime" placeholder="开始时间" name="starTime" style="height:32px;" value="{$Think.get.starTime}">
+											</span>
+									 -->
+											<span class="input-icon input-icon-right">
+											<input  type="text" id="factoryname" placeholder="维修厂" name="factoryname" style="height:32px;width:120px;" value="{$Think.get.factoryname}">
+											</span>
+											<span class="input-icon input-icon-right">
+											<input  type="text" id="car_brandname" placeholder="品牌" name="car_brandname" style="height:32px;width:120px;" value="{$Think.get.car_brandname}">
+											</span>
+											<input  class=" btn-lg btn-success btn btn-xs btn-danger" type="submit" value="搜索">
+										</div>
+										 <if condition="$role eq 1">
+											<a class="label label-xlg label-primary arrowed-right pull-right " href="{:U('Factorybrand/add')}">添加维修厂品牌</a>
+											
+										 
+										 </if>
+						</form>
+							
+							
+							
+							
+						</div>
+						<div class="form-group">
+						
+						</div>
+
+						<div class="row">
+							<div class="col-xs-12">
+								<!-- PAGE CONTENT BEGINS -->
+
+								<div class="row">
+									<div class="col-xs-12">
+										<div class="table-responsive">
+											<table id="sample-table-1" class="table table-bordered table-hover">
+												<thead>
+													<tr>
+														<if condition="$role eq 1">
+														<th>操作</th>
+															
+														</if>
+														<th>维修厂</th>
+														<th>车辆品牌</th>
+														
+													</tr>
+												</thead>
+
+												<tbody>
+												 <volist name="list" id="v">
+													<tr>
+													
+														<if condition="$role eq 1">
+														<td>
+															<div class="btn-group">
+																
+
+																<!-- <a href="{:U('Factorybrand/edit',array('factoryid'=>$v['factoryid'],'id'=>$v['factoryid']))}" class="btn btn-xs btn-info">
+																	<i class="icon-edit bigger-120"></i>
+																</a> -->
+
+																<a onclick="if(confirm('确认删除?')) location.href='{:U('Factorybrand/del',array('factoryid'=>$v[factoryid],'car_brandid'=>$v[car_brandid]))}'"  href="javascript:;"  class="btn btn-xs btn-danger">
+																	<i class="icon-trash bigger-120"></i>
+																</a>
+
+																
+															</div>
+
+															
+														</td>
+
+														</if>
+														<td>
+															{$v.factoryname}
+														</td>
+														<td>{$v.brandname}</td>
+
+
+													</tr>
+												</volist>
+												
+												</tbody>
+											</table>
+									
+										</div><!-- /.table-responsive -->
+										<div class="col-sm-6 pull-right">
+											<div class="dataTables_paginate paging_bootstrap ">
+												<ul class="pagination ">
+												{$page}
+												</ul>
+											</div>
+										</div>
+									</div><!-- /span -->
+								</div><!-- /row -->
+
+							
+
+							
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+					</div><!-- /.page-content -->
+				</div><!-- /.main-content -->
+
+			
+			</div><!-- /.main-container-inner -->
+<include file="Public:footer" />
+<!-- 下面是时间的参数 -->
+<script type="text/javascript">
+			$(function(){
+				
+			 
+			
+		var logic = function( currentDateTime ){
+			if( currentDateTime.getDay()==6 ){
+				this.setOptions({
+					minTime:'11:00'
+				});
+			}else
+				this.setOptions({
+					minTime:'8:00'
+				});
+		};
+		$('#starTime').datetimepicker({
+			lang:'ch',
+			step:30,
+		});
+		$('#endTime').datetimepicker({
+			lang:'ch',
+			step:30,
+		});
+		
+		});
+</script>

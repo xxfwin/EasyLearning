@@ -1,0 +1,324 @@
+{:W('TopBar/topbar')}
+
+		<link rel="stylesheet" href="__PUBLIC__/upload/themes/default/default.css" />
+		<script src="__PUBLIC__/upload/kindeditor.js"></script>
+		<script src="__PUBLIC__/upload/lang/zh_CN.js"></script>
+		<script>
+			KindEditor.ready(function(K) {
+				var editor = K.editor({
+					allowFileManager : true
+				});
+				K('#J_selectImage').click(function() {
+					editor.loadPlugin('multiimage', function() {
+						editor.plugin.multiImageDialog({
+							clickFn : function(urlList) {
+								var div = K('#J_imageView');
+								div.html('');
+								K.each(urlList, function(i, data) {
+									div.append('<img style="width:130px;height：30px;margin-top:20px;margin-right:8px;"src="' + data.url + '">');
+								});
+								editor.hideDialog();
+							}
+						});
+					});
+				});
+			});
+		</script>
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+			<div class="main-container-inner">
+				<a class="menu-toggler" id="menu-toggler" href="#">
+					<span class="menu-text"></span>
+				</a>
+
+				{:W('TopBar/leftbar')}
+
+				<div class="main-content">
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<ul class="breadcrumb">
+							<li>
+								<i class="icon-home home-icon"></i>
+								<a href="#">首页</a>
+							</li>
+
+							<li>
+								<a href="{:U('Incident/index')}">事故信息</a>
+							</li>
+							<li class="active">事故列表</li>
+						</ul><!-- .breadcrumb -->
+
+
+					</div>
+
+					<div class="page-content">
+						<div class="page-header">
+						 <a class="label label-xlg label-primary arrowed " href="{:U('Incident/index')}">
+							返回列表</a>
+
+						</div><!-- /.page-header -->
+
+						<div class="row">
+							<div class="col-xs-12">
+								<!-- PAGE CONTENT BEGINS -->
+
+								<form class="form-horizontal" action="" method="post" id="myform">
+
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 用户ID： </label>
+
+										<div class="col-sm-9">
+											<input type="text" id="userid" placeholder="用户ID" class="col-sm-4" name="userid"  value="{$info.userid}" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 电话： </label>
+
+										<div class="col-sm-9">
+											<input type="text" id="phone" placeholder="用户电话" class="col-sm-4" name="phone"  value="{$info.phone}" />
+
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 故障部位： </label>
+
+										<div class="col-sm-9">
+											<input type="text" id="carposition" placeholder="故障部位" class="col-sm-4" name="carposition"  value="{$info.carposition}" />
+
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 案件号： </label>
+
+										<div class="col-sm-9">
+											<input type="text" id="position" placeholder="案件号" class="col-sm-4" name="position"  value="{$info.position}" />
+
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 事故类型： </label>
+										
+										
+										<div class="col-sm-9">
+
+											<select class="form-control"   style="width:150px" name="faultyid" id="faultyid">
+											<volist name="faultyinfo" id="v" >
+												<option value="{$v.id}" <if condition="$info[faultyid] eq $v[id]"> selected=selected</if>>
+												<?php echo($v[type].$v[condition]) ?>
+												</option>
+											</volist>
+									
+									
+											</select>
+
+										</div>
+									</div>
+									<!-- <div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 事故类型： </label>
+
+										<div class="col-sm-9">
+											<input type="text" id="faultyid" placeholder="事故类型ID" class="col-sm-4" name="faultyid"  value="{$info.faultyid}" />
+
+										</div>
+									</div> -->
+
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 出险时间： </label>
+
+										<div class="col-sm-9">
+											<input type="text" id="date" placeholder="发生时间" class="col-sm-4"  name="date" value="{$info.date}" />
+
+										</div>
+									</div>
+									<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 状态： </label>
+									<div class="col-sm-9">
+									<select class="form-control"  style="width:150px" name="status" id="status">				
+									
+									<if condition="$info.status eq 1">
+									<option value="1">已处理</option>
+									<option value="2">已到达维修厂</option>
+									<option value="3">已完成维修</option>
+									</if>
+									<if condition="$info.status eq 2">
+									<option value="2">已到达维修厂</option>
+									<option value="1">已处理</option>
+									<option value="3">已完成维修</option>
+									</if>
+									<if condition="$info.status eq 3">
+									<option value="3">已完成维修</option>
+									<option value="1">已处理</option>
+									<option value="2">已到达维修厂</option>
+									</if>
+									
+									
+									</select>
+									
+									</div>
+
+									</div>
+
+									<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 维修厂： </label>
+									<div class="col-sm-9">
+									<select class="form-control"  style="width:150px" name="factoryid" id="factoryid">
+										<option value=""></option>
+										<volist name="factorylist" id="vo" empty="暂时没有数据">
+										<option value="{$vo[id]}">{$vo[name]}</option>
+										</volist>
+									
+									</select>
+									
+									</div>
+
+									</div>
+									<div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 候选维修厂： </label>
+									<div class="col-sm-9">
+									<volist name="factorylist" id="vo" empty="暂时没有数据">
+									<input type="checkbox" name="candidatefactoryid[]" value="{$vo[id]}">{$vo[name]}</input>
+									</volist>
+									</div>
+
+									</div>
+									
+									<!-- <div class="form-group">
+									<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 车ID： </label>
+									<div class="col-sm-9">
+									<select class="form-control"  style="width:150px" name="carid" id="carid">				
+										<volist name="carlist" id="vo" empty="暂时没有数据">
+										<option value="{$vo[id]}">{$vo[nickname]}</option>
+										</volist>
+									
+									</select>
+									</div>
+									</div> -->						
+									
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 车ID： </label>
+
+										<div class="col-sm-9">
+											<input type="text" id="carid" placeholder="车ID" class="col-sm-4"  name="carid" value="{$info.carid}" />
+
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 是否三者车： </label>
+
+										<div class="col-sm-9">
+											<select class="form-control"  style="width:150px" name="is_thirdparty" id="is_thirdparty">				
+										<option value="0">否</option>
+										<option value="1">是</option>
+									</select>
+
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 三者车ID： </label>
+
+										<div class="col-sm-9">
+											<input type="text" id="thirdparty_id" placeholder="三者车ID" class="col-sm-4"  name="thirdparty_id" value="{$info.thirdparty_id}" />
+
+										</div>
+									</div>
+									<div class="clearfix form-actions">
+										<div class="col-md-offset-3 col-md-9">
+											<button class="btn btn-info" id="button" type="submit">
+												<i class="icon-ok bigger-110"></i>
+												提交
+											</button>
+
+											&nbsp; &nbsp; &nbsp;
+											<button class="btn" type="reset">
+												<i class="icon-undo bigger-110"></i>
+												重置
+											</button>
+										</div>
+									</div>
+								</form>
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+					</div><!-- /.page-content -->
+				</div><!-- /.main-content -->
+
+
+			</div><!-- /.main-container-inner -->
+
+
+	<include file="Public:footer" />
+<script type="text/javascript">
+	$(function(){
+		$("#button").click(function(){
+
+
+			var userid=$("#userid").val();
+			var faultyid=$("#faultyid").val();
+			var count=$("#count").val();
+			var date=$("#date").val();
+			var status=$("#status").val();
+			var factoryid=$("#factoryid").val();
+			var carid=$("#carid").val();
+			
+			var is_thirdparty=$("#is_thirdparty").val();
+			
+
+			if(userid==''){
+				layer.alert('用户ID必须填写', {icon: 5});
+				return false;
+			}else if(faultyid==''){
+				layer.alert('事故号必须填写', {icon: 5});
+				return false;
+			}else if(date==''){
+				layer.alert('日期必须填写', {icon: 5});
+				return false;
+			}else if(status==''){
+				layer.alert('状态必须填写', {icon: 5});
+				return false;
+			}else if (carid=='') {
+				layer.alert('车辆ID必须填写', {icon: 5});
+				return false;
+			}else if (is_thirdparty=='') {
+				layer.alert('是否三者车必须填写', {icon: 5});
+				return false;
+			}else {
+				$("#myform").submit();
+			}
+		});
+	});
+</script>
+
+<!-- 下面是时间的参数 -->
+<script type="text/javascript">
+			$(function(){
+
+
+
+		var logic = function( currentDateTime ){
+			if( currentDateTime.getDay()==6 ){
+				this.setOptions({
+					minTime:'11:00'
+				});
+			}else
+				this.setOptions({
+					minTime:'8:00'
+				});
+		};
+		$('#date').datetimepicker({
+			lang:'ch',
+			step:30,
+		});
+		$('#enddate').datetimepicker({
+			lang:'ch',
+			step:30,
+		});
+
+		});
+</script>

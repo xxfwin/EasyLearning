@@ -1,0 +1,142 @@
+{:W('TopBar/topbar')}
+<head>
+<script type="text/javascript" src="<?php echo $CFG->wwwroot;?>/moodle/course/ueditor.config.js"></script>
+<script type="text/javascript" src="<?php echo $CFG->wwwroot;?>/moodle/course/ueditor.all.min.js"></script>
+</head>
+		<style type="text/css">
+		
+		.onShow{
+			height:30px;display:block;float:right;margin-right:336px;width:138px
+		}
+		.onError{
+			height:30px;display:block;float:right;margin-right:336px;width:138px
+		}
+		.onFocus{
+			height:30px;display:block;float:right;margin-right:336px;width:138px
+		}
+		.onCorrect{
+			height:30px;display:block;float:right;margin-right:336px;width:138px
+		}
+
+	</style>	
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+			<div class="main-container-inner">
+				<a class="menu-toggler" id="menu-toggler" href="#">
+					<span class="menu-text"></span>
+				</a>
+
+				{:W('TopBar/leftbar')}
+
+				<div class="main-content">
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<ul class="breadcrumb">
+							<li>
+								<i class="icon-home home-icon"></i>
+								<a href="#">首页</a>
+							</li>
+
+							<li>
+								<a href="{:U('User/index')}">笔记列表</a>
+							</li>
+							<li class="active">{$course}</li>
+							<li class="active">添加笔记</li>
+						</ul><!-- .breadcrumb -->
+
+					
+					</div>
+
+					<div class="page-content">
+						<div class="page-header">
+						 <a class="label label-xlg label-primary arrowed " href="{:U('User/index')}">
+							返回列表</a>
+							
+						</div><!-- /.page-header -->
+
+						<div class="row">
+							<div class="col-xs-12">
+								<!-- PAGE CONTENT BEGINS -->
+
+								<form class="form-horizontal" action="" method="post" id="myform">
+								<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 章节选取： </label>
+										<div class="col-sm-3">
+											<select   class="form-control"  name="pid" id="pid">
+												<option value="0">请选择章节</option>
+												<empty name="list">
+													<option>没有可以添加的章节笔记</option>
+												<else />
+													<volist name="list" id="v">
+														<option value="{$v.id}">{$v.name}</option>
+													</volist>
+												</empty>
+											</select> 
+										</div>
+								</div>
+								<!-- 调用ueditor -->
+								<div class="form-group">		
+									<div id="editor"></div>
+								</div>
+									
+									<div class="clearfix form-actions">
+										<div class="col-md-offset-3 col-md-9">
+											<button class="btn btn-info" id="button" type="submit">
+												<i class="icon-ok bigger-110"></i>
+												提交
+											</button>
+
+											&nbsp; &nbsp; &nbsp;
+											<button class="btn" type="reset">
+												<i class="icon-undo bigger-110"></i>
+												重置
+											</button>
+										</div>
+									</div> 
+
+								
+
+									
+								</form>
+
+								
+
+							
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+					</div><!-- /.page-content -->
+				</div><!-- /.main-content -->
+
+				
+			</div><!-- /.main-container-inner -->
+
+
+	<include file="Public:footer" />
+<script type="text/javascript">
+	$(document).ready(function(){
+		var ue = UE.getEditor('editor');
+		
+		$(function(){
+			$("#button").click(function(){
+				var name=$("#name").val();
+				var title=$("#title").val();
+				
+				if(name==''){
+					layer.alert('控制器/方法必须填写', {icon: 5});
+					return false;
+				}else if(title==''){
+					layer.alert('控制器/方法的别名必须填写', {icon: 5});
+					return false;
+				}else{
+					$("#myform").submit();
+				}
+			});
+		});
+	});
+</script>

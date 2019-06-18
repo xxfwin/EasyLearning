@@ -1,0 +1,91 @@
+<div class="sidebar" id="sidebar">
+<style type="text/css">
+	.activ{
+		background: #438eb9;
+	}
+</style>
+
+
+					<script type="text/javascript">
+						try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
+					</script>
+
+					<div class="sidebar-shortcuts" id="sidebar-shortcuts">
+						<div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+							<a href="/" class="btn btn-success">
+								<i class="icon-home"></i>
+							</a>
+
+							<a href="{:U('Article/index')}" class="btn btn-info">
+								<i class="icon-pencil"></i>
+							</a>
+
+							<a href="{:U('User/index')}" class="btn btn-warning">
+								<i class="icon-group"></i>
+							</a>
+
+							<a href="{:U('Cahe/index')}" class="btn btn-danger">
+								<i class="icon-cogs"> </i>
+							</a>
+						</div>
+
+						<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+							<span class="btn btn-success"></span>
+
+							<span class="btn btn-info"></span>
+
+							<span class="btn btn-warning"></span>
+
+							<span class="btn btn-danger"></span>
+						</div>
+					</div><!-- #sidebar-shortcuts -->
+
+					<ul class="nav nav-list">
+						<li <if condition=" CONTROLLER_NAME eq 'Index'"> class="active"</if>>
+							<a href="{:U('Index/index')}">
+								<i class="icon-dashboard"></i>
+								<span class="menu-text"> 首页 </span>
+							</a>
+						</li>
+						<!-- 以下是左侧菜单栏的代码 -->
+						<volist name="menu" id="vo">
+						<li <if condition="$open eq $vo['id']"> class="open" style="display:block"</if>>
+							<a href="#" class="dropdown-toggle">
+								<i class="icon-{$vo.icon}"></i>
+								<span class="menu-text"> {$vo.title} </span>
+
+								<b class="arrow icon-angle-down"></b>
+							</a>
+
+							<ul class="submenu" <if condition="$open eq $vo['id']"> style="display:block"</if> >
+							 <volist name="vo.child" id="v">
+								<li <if condition="$v['name'] eq CONTROLLER_NAME">class="active" </if> >
+									<a href="{$v.url}" >
+										<i class="icon-double-angle-right"></i>
+										{$v.title}
+									</a>
+								</li>
+							</volist>
+								
+							</ul>
+						</li>
+						
+					</volist>
+								
+						<li> 
+							<a href="#">
+								<span class="menu-text"> 可用空间:{$disk}G &nbsp 负载:{$load} </span>
+							</a>
+						</li>
+
+						
+					</ul><!-- /.nav-list -->
+
+					<div class="sidebar-collapse" id="sidebar-collapse">
+						<i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
+					</div>
+
+					<script type="text/javascript">
+						try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+					</script>
+				</div>

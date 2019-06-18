@@ -1,0 +1,117 @@
+{:W('TopBar/topbar')}
+
+		
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+			<div class="main-container-inner">
+				<a class="menu-toggler" id="menu-toggler" href="#">
+					<span class="menu-text"></span>
+				</a>
+
+				{:W('TopBar/leftbar')}
+
+				<div class="main-content">
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+					<ul class="breadcrumb">
+							<li>
+								<i class="icon-home home-icon"></i>
+								<a href="#">首页</a>
+							</li>
+
+							<li>
+								<a href="{:U('Incidentfaulty/index')}">事故信息</a>
+							</li>
+							<li class="active">修改事故类型</li>
+						</ul><!-- .breadcrumb -->
+					</div>
+
+					<div class="page-content">
+						<div class="page-header">
+						 <a class="label label-xlg label-primary arrowed " href="{:U('Incidentfaulty/index')}">
+							返回列表</a>
+							
+						</div><!-- /.page-header -->
+
+						<div class="row">
+							<div class="col-xs-12">
+								<!-- PAGE CONTENT BEGINS -->
+
+								<form class="form-horizontal" action="" method="post" id="myform">
+									
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 事故类型： </label>
+
+										<div class="col-sm-9">
+											<input type="text" id="type" placeholder="事故类型" class="col-sm-4" name="type"  value="{$info.type}" />
+											
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 条件： </label>
+
+										<div class="col-sm-9">
+											<input type="text" id="condition" placeholder="条件" class="col-sm-4" name="condition"  value="{$info.condition}" />
+											
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 价值： </label>
+
+										<div class="col-sm-9">
+											<input type="text" id="value" placeholder="价值" class="col-sm-4"  name="value" value="{$info.value}" />
+											
+										</div>
+									</div>
+									
+									<div class="clearfix form-actions">
+										<div class="col-md-offset-3 col-md-9">
+											<input type="hidden" name="id" value="{$info.id}">
+											<button class="btn btn-info" id="button" type="submit">
+												<i class="icon-ok bigger-110"></i>
+												提交
+											</button>
+
+											
+										</div>
+									</div>
+								</form>
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+					</div><!-- /.page-content -->
+				</div><!-- /.main-content -->
+
+				
+			</div><!-- /.main-container-inner -->
+
+
+	<include file="Public:footer" />
+<script type="text/javascript">
+	$(function(){
+		$("#button").click(function(){
+			var type=$("#type").val();
+			var condition=$("#condition").val();
+			var value=$("#value").val();
+			
+			if(type==0){
+				layer.alert('分类必须选择', {icon: 5});
+				return false;
+			}else if(condition==''){
+				layer.alert('条件必须填写', {icon: 5});
+				return false;
+			}else if(value==''){
+				layer.alert('价值必须填写', {icon: 5});
+				return false;
+			}else{
+				$("#myform").submit();
+			}
+		});
+	});
+</script>

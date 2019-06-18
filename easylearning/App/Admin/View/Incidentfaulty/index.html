@@ -1,0 +1,249 @@
+{:W('TopBar/topbar')}
+
+		<link rel="stylesheet" href="__PUBLIC__/upload/themes/default/default.css" />
+		<script src="__PUBLIC__/upload/kindeditor.js"></script>
+		<script src="__PUBLIC__/upload/lang/zh_CN.js"></script>
+		<script>
+			KindEditor.ready(function(K) {
+				var editor = K.editor({
+					allowFileManager : true
+				});
+				K('#J_selectImage').click(function() {
+					editor.loadPlugin('multiimage', function() {
+						editor.plugin.multiImageDialog({
+							clickFn : function(urlList) {
+								var div = K('#J_imageView');
+								div.html('');
+								K.each(urlList, function(i, data) {
+									div.append('<img style="width:130px;height：30px;margin-top:20px;margin-right:8px;"src="' + data.url + '">');
+								});
+								editor.hideDialog();
+							}
+						});
+					});
+				});
+			});
+		</script>
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+			<div class="main-container-inner">
+				<a class="menu-toggler" id="menu-toggler" href="#">
+					<span class="menu-text"></span>
+				</a>
+
+				{:W('TopBar/leftbar')}
+
+				<div class="main-content">
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<ul class="breadcrumb">
+							<li>
+								<i class="icon-home home-icon"></i>
+								<a href="#">首页</a>
+							</li>
+
+							<li>
+								<a href="{:U('Incidentfaulty/index')}">导出笔记</a>
+							</li>
+							<li class="active">生成笔记</li>
+						</ul><!-- .breadcrumb -->
+
+					
+					</div>
+
+					<div class="page-content">
+						<div class="page-header">
+						 <a class="label label-xlg label-primary arrowed-in-right " href="#">
+							请选择生成参数</a>
+							
+						</div><!-- /.page-header -->
+
+						<div class="row">
+							<div class="col-xs-12">
+								<!-- PAGE CONTENT BEGINS -->
+
+								<form class="form-horizontal" action="" method="post" id="myform">
+								
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 请选择要导出的课程： </label>
+										<div class="col-sm-9">
+											<table id="sample-table-1" class="table table-striped table-hover">
+											<tbody>
+												 <volist name="list" id="val">
+													<tr>
+														<th class="right" colspan="6">
+														<input type="checkbox" class="ace" name="node[]"  value="{$val.id}" />
+																<span class="lbl">&nbsp;&nbsp;{$val.fullname}</span>
+															
+														</th>
+														
+													</tr>
+													<tr>
+													  <volist name="val.child" id="vo" >
+														
+														<td class="td{$val.id}">
+															<input type="checkbox" class="ace" name="node[]"  value="{$key}"  />
+															<span class="lbl">&nbsp;&nbsp;{$vo}</span>
+														</td>
+													  </volist>
+													</tr>
+
+												 </volist>
+
+
+											</tbody>
+										
+											</table>
+									   </div>
+								   
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 请选择导出模板： </label>
+
+										<div class="col-sm-9">
+											<select id="template" name="template">
+												<volist name="templatelist" id="tempval">
+													<option value ="{$tempval.id}">{$tempval.title}</option>
+												</volist>
+											</select>
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 请选择导出文件类型： </label>
+
+										<div class="col-sm-9">
+											<select id="filetype" name="filetype">
+												<option value ="0">PDF</option>
+
+											</select>
+									</div>
+								</div>
+								<div class="clearfix form-actions">
+									<div class="col-md-offset-3 col-md-9">
+										<button class="btn btn-info" id="button" type="submit">
+											<i class="icon-ok bigger-110"></i>
+											提交
+										</button>
+
+										&nbsp; &nbsp; &nbsp;
+										<button class="btn" type="reset">
+											<i class="icon-undo bigger-110"></i>
+											重置
+										</button>
+									</div>
+								</div>
+							</form>
+						</div><!-- /.col -->
+						</div><!-- /.row -->
+					</div><!-- /.page-content -->
+			</div><!-- /.main-content -->
+
+			
+		</div><!-- /.main-container-inner -->
+
+
+	<include file="Public:footer" />
+<!-- <script type="text/javascript"> -->
+	<!-- $(function(){ -->
+		<!-- $("#button").click(function(){ -->
+		
+			
+			<!-- var type=$("#type").val(); -->
+			<!-- var condition=$("#condition").val(); -->
+			<!-- var value=$("#value").val(); -->
+			
+			
+			<!-- if(type==''){ -->
+				<!-- layer.alert('事故类型必须填写', {icon: 5}); -->
+				<!-- return false; -->
+			<!-- }else if(condition==''){ -->
+				<!-- layer.alert('条件必须填写', {icon: 5}); -->
+				<!-- return false; -->
+			<!-- }else if(value==''){ -->
+				<!-- layer.alert('价值必须填写', {icon: 5}); -->
+				<!-- return false; -->
+			<!-- }else{ -->
+				<!-- $("#myform").submit(); -->
+			<!-- } -->
+		<!-- }); -->
+	<!-- }); -->
+<!-- </script> -->
+
+<script type="text/javascript">
+	jQuery(function($) {
+		var oTable1 = $('#sample-table-2').dataTable( {
+		"aoColumns": [
+		  { "bSortable": false },
+		  null, null,null, null, null,
+		  { "bSortable": false }
+		] } );
+		
+		
+		$('table th input:checkbox').on('click' , function(){
+			var that = this;
+			var id='.td'+$(this).val();
+			$(this).closest('tr').nextAll().find(id+' input:checkbox')
+			.each(function(){
+				this.checked = that.checked;
+				//$(this).closest('tr').toggleClass('selected');
+			});
+				
+		});
+	
+		$('table .right input:checkbox').on('click' , function(){
+			var that = this;
+			//alert($(this).closest('td').attr('class'));
+			$(this).closest('tr').find('td input:checkbox')
+			.each(function(){
+				this.checked = that.checked;
+				$(this).closest('tr').toggleClass('selected');
+			});
+				
+		});
+	
+		
+	})
+</script>
+
+<script type="text/javascript">
+	jQuery(function($) {
+		var oTable1 = $('#sample-table-2').dataTable( {
+		"aoColumns": [
+		  { "bSortable": false },
+		  null, null,null, null, null,
+		  { "bSortable": false }
+		] } );
+		
+		
+		$('table th input:checkbox').on('click' , function(){
+			var that = this;
+			var id='.td'+$(this).val();
+			$(this).closest('tr').nextAll().find(id+' input:checkbox')
+			.each(function(){
+				this.checked = that.checked;
+				//$(this).closest('tr').toggleClass('selected');
+			});
+				
+		});
+	
+		$('table .right input:checkbox').on('click' , function(){
+			var that = this;
+			//alert($(this).closest('td').attr('class'));
+			$(this).closest('tr').find('td input:checkbox')
+			.each(function(){
+				this.checked = that.checked;
+				$(this).closest('tr').toggleClass('selected');
+			});
+				
+		});
+	
+		
+	})
+</script>

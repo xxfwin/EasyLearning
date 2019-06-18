@@ -1,0 +1,85 @@
+{:W('TopBar/topbar')}
+<style type="text/css">
+	
+	.wminimize:hover{
+		text-decoration:none;
+	}
+	.table thead>tr>th, .table tbody>tr>th, .table tfoot>tr>th, .table thead>tr>td, .table tbody>tr>td, .table tfoot>tr>td {
+			padding: 8px;
+			line-height: 1.428571429;
+			vertical-align: top;
+			 border-top: 0px solid #ddd; 
+}
+</style>
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+			<div class="main-container-inner">
+				<a class="menu-toggler" id="menu-toggler" href="#">
+					<span class="menu-text"></span>
+				</a>
+
+				{:W('TopBar/leftbar')}
+
+				<div class="main-content">
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<ul class="breadcrumb">
+							<li>
+								<i class="icon-home home-icon"></i>
+								<a href="{:U('Index/index')}">首页</a>
+							</li>
+							
+							<li class="active">笔记购物车</li>
+							
+						</ul><!-- .breadcrumb -->
+
+					</div>
+
+					<div class="page-content">
+						<div class="page-header">
+						 
+					
+							<div class="table-responsive" >
+								<table id="sample-table-1" class="table table-hover"  >
+									<volist name="list" id="vo">
+										<tr>
+											<th>
+												<a class="label label-xlg label-primary arrowed-right ">
+													{$key}
+												</a>
+											
+											</th>
+										</tr>
+										<tr>
+											<volist name="vo" id="m" key="k">
+												<td>
+													<span>
+														<a href="{:U('Notecart/show',array('id'=>$m['id']))}" class="wminimize">{$m['content']}</a>
+					
+													</span>
+												</td>
+												<!-- 每三列换一行 -->
+												<if condition="$k%3 eq 0">
+													<tr></tr>
+												</if>
+												
+											</volist>
+										</tr>
+									</volist>
+								</table>
+							</div><!-- /.table-responsive -->
+						</div>
+					</div><!-- /.page-content -->
+				</div><!-- /.main-content -->
+
+			
+			</div><!-- /.main-container-inner -->
+
+			
+<include file="Public:footer" />

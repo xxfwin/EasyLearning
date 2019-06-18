@@ -1,0 +1,125 @@
+{:W('TopBar/topbar')}
+<style type="text/css">
+	
+	.wminimize:hover{
+		text-decoration:none;
+	}
+	.table thead>tr>th, .table tbody>tr>th, .table tfoot>tr>th, .table thead>tr>td, .table tbody>tr>td, .table tfoot>tr>td {
+			padding: 8px;
+			line-height: 1.428571429;
+			vertical-align: top;
+			 border-top: 0px solid #ddd; 
+}
+</style>
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+			<div class="main-container-inner">
+				<a class="menu-toggler" id="menu-toggler" href="#">
+					<span class="menu-text"></span>
+				</a>
+
+				{:W('TopBar/leftbar')}
+
+				<div class="main-content">
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<ul class="breadcrumb">
+							<li>
+								<i class="icon-home home-icon"></i>
+								<a href="{:U('Index/index')}">首页</a>
+							</li>
+							
+							<li class="active">笔记购物车</li>
+							
+						</ul><!-- .breadcrumb -->
+
+					</div>
+
+					<div class="page-content">
+						<div class="page-header">
+						<a class="label label-xlg label-primary arrowed-in-right " href="{:U('Notecart/index')}">
+							返回</a>
+							<div class="table-responsive" >
+								<form class="form-horizontal" action="{:U('Notecart/add')}" method="post" id="myform">
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Facts： </label>
+
+										<div class="col-sm-9">
+											<volist name="facts" id="tempval">
+												<td class="">
+													<input type="checkbox" class="ace" name="facts{$tempval['tipid']}"  value="{$tempval['tipid']}"  />
+													<span class="lbl">{$tempval['tipcontent']}</span>
+												</td>
+											</volist>
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> AnnotationSpace： </label>
+
+										<div class="col-sm-9">
+											<input type="checkbox" class="ace" name="as"  value="{$note['id']}"  />
+											<span class="lbl">{$note['text']}</span>
+											
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> CommonMistakes： </label>
+
+	
+											<div class="col-sm-9">
+											<volist name="cm" id="tempval">
+												<td class="">
+													<input type="checkbox" class="ace" name="cm{$tempval['tipid']}"  value="{$tempval['tipid']}"  />
+													<span class="lbl">{$tempval['tipcontent']}</span>
+												</td>
+											</volist>
+											</div>
+			
+									</div>
+									
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> OtherSays： </label>
+
+										<div class="col-sm-9">
+											<div class="col-sm-9">
+											<volist name="os" id="tempval">
+												<td class="td{$val.id}">
+													<input type="checkbox" class="ace" name="os{$tempval['tipid']}"  value="{$tempval['tipid']}"  />
+													<span class="lbl">{$tempval['tipcontent']}</span>
+												</td>
+											</volist>
+										</div>
+										</div>
+									</div>
+									<div class="clearfix form-actions">
+										<div class="col-md-offset-3 col-md-9">
+											<button class="btn btn-info" id="button" type="submit">
+												<i class="icon-ok bigger-110"></i>
+												加入购物车
+											</button>
+
+											&nbsp; &nbsp; &nbsp;
+											<button class="btn" type="reset">
+												<i class="icon-undo bigger-110"></i>
+												重置
+											</button>
+										</div>
+									</div>
+								</form>
+							</div><!-- /.table-responsive -->
+						</div>
+					</div><!-- /.page-content -->
+				</div><!-- /.main-content -->
+
+			
+			</div><!-- /.main-container-inner -->
+
+			
+<include file="Public:footer" />
